@@ -1,4 +1,5 @@
-*
-!PKGBUILD
-!.SRCINFO
-!.gitignore
+src/
+pkg/
+*.pkg.tar.zst
+*.tar.gz
+calamares-*/
