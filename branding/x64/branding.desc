@@ -1,0 +1,33 @@
+---
+componentName:  x64
+windowExpanding: normal
+windowSize: 1100px,520px
+windowPlacement: center
+
+sidebar: qml,bottom
+navigation: widget
+
+strings:
+    productName:         X64 LIOS
+    shortProductName:    X64
+    version:             2026.10
+    shortVersion:        2026
+    versionedName:       X64 LIOS 2026.10
+    shortVersionedName:  X64 2026
+    bootloaderEntryName: X64
+
+images:
+    productLogo:         "x64-logo.svg"
+    productIcon:         "x64-logo.svg"
+    productWelcome:      "x64-logo.svg"
+
+
+
+style:
+   SidebarBackground:    "#151515"
+   SidebarText:          "#ffffff"
+   SidebarTextCurrent:   "#cc0000"
+   SidebarBackgroundCurrent: "#151515"
+
+navigation: "widget"
+slideshow: "show.qml"
