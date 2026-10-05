@@ -10,13 +10,19 @@
   hidden: true
   selected: true
   critical: true
-  packages:-headers-lts-lts-headers
+  packages:
+     - linux-zen
+     - linux-zen-headers
+     - linux-lts
+     - linux-lts-headers
 - name: "X64 kernels (hidden/handheld)"
   description: "X64 kernels to install (Handheld)"
   hidden: true
   selected: true
   critical: true
-  packages:-deckify-deckify-headers
+  packages:
+     - linux-zen
+     - linux-zen-headers
 - name: "X64 Shell Configuration"
   description: "Shell packages for X64"
   hidden: false
@@ -384,8 +390,8 @@
   selected: false
   packages:
     - bash-completion
-      - openssh
-      - htop
+    - openssh
+    - htop
 - name: "Firefox and language package"
   description: "Add firefox and language pack if possible"
   hidden: false
