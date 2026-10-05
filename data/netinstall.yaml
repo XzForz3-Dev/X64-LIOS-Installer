@@ -632,21 +632,21 @@
     - xorg-server
     - xorg-xinit
     - xorg-xrandr
-  - name: "X64-Server-Core"
-    description: "Minimal installation for X64 servers without a graphical environment."
-    description[es]: "Instalación mínima para servidores X64 sin entorno gráfico."
-    description[ca]: "Instal·lació mínima per a servidors X64 sense entorn gràfic."
-    description[fr]: "Installation minimale pour serveurs X64 sans environnement graphique."
-    description[de]: "Minimale Installation für X64-Server ohne grafische Umgebung."
-    description[pt_BR]: "Instalação mínima para servidores X64 sem ambiente gráfico."
-    description[ru]: "Минимальная установка для серверов X64 без графической среды."
-    description[zh_CN]: "没有图形环境的 X64 服务器最小化安装。"
-    description[hi]: "बिना ग्राफिकल परिवेश के X64 सर्वर के लिए न्यूनतम स्थापना।"
-    description[ja]: "グラフィカル環境のない X64 サーバー向けの最小インストール。"
-    hidden: false
-    selected: false
-    packages:
-      - bash-completion
+- name: "X64-Server-Core"
+  description: "Minimal installation for X64 servers without a graphical environment."
+  description[es]: "Instalación mínima para servidores X64 sin entorno gráfico."
+  description[ca]: "Instal·lació mínima per a servidors X64 sense entorn gràfic."
+  description[fr]: "Installation minimale pour serveurs X64 sans environnement graphique."
+  description[de]: "Minimale Installation für X64-Server ohne grafische Umgebung."
+  description[pt_BR]: "Instalação mínima para servidores X64 sem ambiente gráfico."
+  description[ru]: "Минимальная установка для серверов X64 без графической среды."
+  description[zh_CN]: "没有图形环境的 X64 服务器最小化安装。"
+  description[hi]: "बिना ग्राफिकल परिवेश के X64 सर्वर के लिए न्यूनतम स्थापना।"
+  description[ja]: "グラフィカル環境のない X64 サーバー向けの最小インストール。"
+  hidden: false
+  selected: false
+  packages:
+    - bash-completion
       - openssh
       - htop
 - name: "Openbox"
