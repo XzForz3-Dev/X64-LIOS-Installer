@@ -4,31 +4,19 @@
   selected: true
   critical: true
   packages:
-     - cachyos-hooks
-     - cachyos-keyring
-     - cachyos-mirrorlist
-     - cachyos-v3-mirrorlist
-     - cachyos-v4-mirrorlist
-     - cachyos-rate-mirrors
      - chwd
 - name: "X64 kernels (hidden)"
   description: "X64 kernels to install"
   hidden: true
   selected: true
   critical: true
-  packages:
-     - linux-cachyos
-     - linux-cachyos-headers
-     - linux-cachyos-lts
-     - linux-cachyos-lts-headers
+  packages:-headers-lts-lts-headers
 - name: "X64 kernels (hidden/handheld)"
   description: "X64 kernels to install (Handheld)"
   hidden: true
   selected: true
   critical: true
-  packages:
-     - linux-cachyos-deckify
-     - linux-cachyos-deckify-headers
+  packages:-deckify-deckify-headers
 - name: "X64 Shell Configuration"
   description: "Shell packages for X64"
   hidden: false
