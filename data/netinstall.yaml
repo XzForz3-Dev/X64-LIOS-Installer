@@ -12,7 +12,7 @@
      - cachyos-rate-mirrors
      - chwd
 - name: "X64 kernels (hidden)"
-  description: "CachyOS kernels to install"
+  description: "X64 kernels to install"
   hidden: true
   selected: true
   critical: true
@@ -22,7 +22,7 @@
      - linux-cachyos-lts
      - linux-cachyos-lts-headers
 - name: "X64 kernels (hidden/handheld)"
-  description: "CachyOS kernels to install (Handheld)"
+  description: "X64 kernels to install (Handheld)"
   hidden: true
   selected: true
   critical: true
@@ -113,7 +113,7 @@
           - unrar
           - unzip
       - name: "fonts"
-        description: "CachyOS font selection"
+        description: "X64 font selection"
         selected: true
         packages:
           - awesome-terminal-fonts
