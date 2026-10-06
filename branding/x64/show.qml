@@ -19,7 +19,7 @@ Presentation
                 anchors.fill: parent
                 horizontalAlignment: Image.AlignCenter
                 verticalAlignment: Image.AlignVCenter
-                fillMode: Image.PreserveAspectCrop
+                fillMode: Image.PreserveAspectFit
             }
         }
     }
