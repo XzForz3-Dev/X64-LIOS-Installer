@@ -11,18 +11,18 @@
   selected: true
   critical: true
   packages:
-     - linux-zen
-     - linux-zen-headers
-     - linux-lts
-     - linux-lts-headers
+     - linux-cachyos
+     - linux-cachyos-headers
+     - linux-cachyos-lts
+     - linux-cachyos-lts-headers
 - name: "X64 kernels (hidden/handheld)"
   description: "X64 kernels to install (Handheld)"
   hidden: true
   selected: true
   critical: true
   packages:
-     - linux-zen
-     - linux-zen-headers
+     - linux-cachyos-deckify
+     - linux-cachyos-deckify-headers
 - name: "X64 Shell Configuration"
   description: "Shell packages for X64"
   hidden: false
