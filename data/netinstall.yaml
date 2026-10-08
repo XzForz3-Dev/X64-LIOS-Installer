@@ -184,6 +184,7 @@
   critical: true
   packages:
     - ark
+    - sddm
     - bluedevil
     - breeze-gtk
     - char-white
