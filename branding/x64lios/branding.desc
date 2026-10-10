@@ -4,7 +4,7 @@ windowExpanding: no
 windowSize:      1000px, 680px
 windowPlacement: center
 
-sidebar: widget
+sidebar: qml,top
 navigation: widget
 
 strings:
@@ -22,9 +22,9 @@ strings:
     donateUrl:           "https://x64lios.com/donate"
 
 images:
-    productIcon:         "logo.png"
-    productLogo:         "logo.png"
-    productWelcome:      "welcome.png"
+    productIcon:         ""
+    productLogo:         ""
+    productWelcome:      "welcome.jpg"
 
 style:
    SidebarBackground:        "#0b0b0d"

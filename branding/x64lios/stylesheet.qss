@@ -1,28 +1,97 @@
-#mainApp {
+/* General App Background */
+QWidget {
     background-color: #0b0b0d;
-    color: #ffffff;
+    color: #e0e0e0;
+    font-family: "Noto Sans", sans-serif;
 }
-#sidebarApp {
+
+#mainApp, #sidebarApp {
     background-color: #0b0b0d;
 }
-QPushButton {
-    background-color: #2a2a2d;
-    color: #ffffff;
-    border: 1px solid #3a3a3d;
+
+/* Sidebar List */
+QListView#stepList {
+    background-color: transparent;
+    color: #888888;
+    border: none;
+    padding: 10px;
+    outline: none;
+}
+QListView#stepList::item {
+    padding: 8px 12px;
     border-radius: 4px;
-    padding: 6px 12px;
+    margin-bottom: 4px;
+}
+QListView#stepList::item:hover {
+    background-color: #1a1a1d;
+    color: #cccccc;
+}
+QListView#stepList::item:selected {
+    background-color: #b31b1b;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+/* Buttons */
+QPushButton {
+    background-color: #1f1f22;
+    color: #ffffff;
+    border: 1px solid #333336;
+    border-radius: 6px;
+    padding: 8px 16px;
+    font-weight: 500;
 }
 QPushButton:hover {
-    background-color: #b31b1b;
-    border: 1px solid #ff2a2a;
-}
-QComboBox {
     background-color: #2a2a2d;
-    color: #ffffff;
-    border: 1px solid #3a3a3d;
+    border-color: #444448;
+}
+QPushButton:pressed {
+    background-color: #b31b1b;
+    border-color: #ff2a2a;
+}
+QPushButton:disabled {
+    background-color: #151518;
+    color: #555555;
+    border-color: #222225;
+}
+
+/* Inputs / ComboBoxes */
+QLineEdit, QComboBox, QSpinBox, QListView, QTreeView, QTableView {
+    background-color: #151518;
+    color: #e0e0e0;
+    border: 1px solid #333336;
     border-radius: 4px;
-    padding: 4px;
+    padding: 4px 8px;
+    selection-background-color: #b31b1b;
+    selection-color: #ffffff;
+    outline: none;
+}
+QLineEdit:focus, QComboBox:focus, QSpinBox:focus {
+    border-color: #b31b1b;
 }
 QComboBox:hover {
-    border: 1px solid #b31b1b;
+    border-color: #b31b1b;
+}
+
+/* Progress Bar */
+QProgressBar {
+    background-color: #151518;
+    border: 1px solid #333336;
+    border-radius: 4px;
+    text-align: center;
+    color: white;
+}
+QProgressBar::chunk {
+    background-color: #b31b1b;
+    border-radius: 3px;
+}
+
+/* Labels and Text */
+QLabel {
+    color: #e0e0e0;
+    background: transparent;
+}
+QCheckBox, QRadioButton {
+    color: #e0e0e0;
+    spacing: 8px;
 }
