@@ -1,0 +1,41 @@
+---
+componentName:   x64lios
+windowExpanding: no
+windowSize:      1000px, 680px
+windowPlacement: center
+
+sidebar: widget
+navigation: widget
+
+strings:
+    productName:         "X64 LIOS Linux"
+    shortProductName:    "X64 LIOS"
+    version:             "1.0 LTS"
+    shortVersion:        "1.0"
+    versionedName:       "X64 LIOS Linux 1.0 LTS"
+    shortVersionedName:  "X64 LIOS 1.0"
+    bootloaderEntryName: "X64 LIOS"
+    productUrl:          "https://x64lios.com/"
+    supportUrl:          "https://x64lios.com/support"
+    knownIssuesUrl:      "https://x64lios.com/issues"
+    releaseNotesUrl:     "https://x64lios.com/releases"
+    donateUrl:           "https://x64lios.com/donate"
+
+images:
+    productIcon:         "logo.png"
+    productLogo:         "logo.png"
+    productWelcome:      "welcome.png"
+
+style:
+   SidebarBackground:        "#0b0b0d"
+   SidebarText:              "#FFFFFF"
+   SidebarTextCurrent:       "#ffffff"
+   SidebarBackgroundCurrent: "#b31b1b"
+
+slideshow:               "show.qml"
+slideshowAPI: 2
+
+uploadServer :
+    type :    "fiche"
+    url :     "http://termbin.com:9999"
+    sizeLimit : -1

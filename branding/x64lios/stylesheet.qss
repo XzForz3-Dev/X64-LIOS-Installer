@@ -1,0 +1,28 @@
+#mainApp {
+    background-color: #0b0b0d;
+    color: #ffffff;
+}
+#sidebarApp {
+    background-color: #0b0b0d;
+}
+QPushButton {
+    background-color: #2a2a2d;
+    color: #ffffff;
+    border: 1px solid #3a3a3d;
+    border-radius: 4px;
+    padding: 6px 12px;
+}
+QPushButton:hover {
+    background-color: #b31b1b;
+    border: 1px solid #ff2a2a;
+}
+QComboBox {
+    background-color: #2a2a2d;
+    color: #ffffff;
+    border: 1px solid #3a3a3d;
+    border-radius: 4px;
+    padding: 4px;
+}
+QComboBox:hover {
+    border: 1px solid #b31b1b;
+}
