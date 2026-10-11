@@ -357,15 +357,6 @@
     - dunst
     - xdg-desktop-portal-hyprland
 
-- name: "X64-Server-Core"
-  description: "Minimal installation for X64 servers without a graphical environment."
-  hidden: false
-  selected: false
-  critical: false
-  packages:
-    - openssh
-    - git
-
 - name: "Web Browsers"
   description: "Popular and optimized web browsers"
   hidden: false
