@@ -1,7 +1,7 @@
 ---
 componentName:   x64lios
 windowExpanding: normal
-windowSize:      1100px, 520px
+windowSize:      1100px, 550px
 windowPlacement: center
 
 sidebar: qml,top
