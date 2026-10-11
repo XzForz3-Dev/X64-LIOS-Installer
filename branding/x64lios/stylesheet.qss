@@ -65,7 +65,7 @@ QPushButton:disabled {
 }
 
 /* Inputs / ComboBoxes */
-QLineEdit, QComboBox, QSpinBox, QListView, QTreeView, QTableView {
+QLineEdit, QComboBox, QSpinBox, QListView, QTableView {
     background-color: #151518;
     color: #e0e0e0;
     border: 1px solid #333336;
@@ -80,6 +80,42 @@ QLineEdit:focus, QComboBox:focus, QSpinBox:focus {
 }
 QComboBox:hover {
     border-color: #b31b1b;
+}
+
+/* TreeView and HeaderView (Netinstall Package Tree) */
+QHeaderView {
+    background-color: #151518;
+    border: none;
+}
+QHeaderView::section {
+    background-color: #18181c;
+    color: #ffffff;
+    padding: 6px 10px;
+    border: none;
+    border-right: 1px solid #28282c;
+    border-bottom: 1px solid #333336;
+    font-weight: bold;
+}
+QTreeView {
+    background-color: #121215;
+    color: #e0e0e0;
+    border: 1px solid #28282c;
+    border-radius: 4px;
+    padding: 4px;
+    outline: none;
+    selection-background-color: #b31b1b;
+    selection-color: #ffffff;
+}
+QTreeView::item {
+    padding: 3px 6px;
+    border-radius: 3px;
+}
+QTreeView::item:hover {
+    background-color: #1e1e24;
+}
+QTreeView::item:selected {
+    background-color: #b31b1b;
+    color: #ffffff;
 }
 
 /* Progress Bar */

@@ -1,10 +1,10 @@
 # SPDX-FileCopyrightText: no
 # SPDX-License-Identifier: CC0-1.0
 #
-# Configuración Oficial de Paquetes Netinstall para X64 LIOS Linux (v3.0)
+# Official Netinstall package tree configuration for X64 LIOS Linux
 ---
 - name: "X64 LIOS Core System"
-  description: "Paquetes esenciales del núcleo, optimizaciones FalconD, Ananicy y repositorios de ultra-rendimiento"
+  description: "Essential core packages, hardware detection, mirrors, and performance services"
   hidden: true
   selected: true
   critical: true
@@ -22,202 +22,182 @@
     - cachyos-ananicy-rules
     - cachyos-settings
     - zram-generator
+    - x64-hello
     - x64-theme-live
     - kitty
     - fish
 
-- name: "X64 LIOS Kernel (Desktop)"
-  description: "Kernel optimizado de ultra-bajo retraso para Gaming en PC y Laptops"
+- name: "X64 LIOS Kernel"
+  description: "Optimized ultra-low latency kernel for gaming on PCs and laptops"
   hidden: true
   selected: true
   critical: true
-  platform: "desktop"
   packages:
     - linux-cachyos
     - linux-cachyos-headers
 
-- name: "X64 LIOS Kernel (Handheld)"
-  description: "Kernel especializado para consolas portátiles (Steam Deck, ROG Ally, Legion Go)"
-  hidden: true
-  selected: true
-  critical: true
-  platform: "handheld"
-  packages:
-    - linux-cachyos-deckify
-    - linux-cachyos-deckify-headers
-
 - name: "Base-devel + Common packages"
-  description: "Recomendado. Componentes base indispensables de red, audio, fuentes, códecs y controladores de hardware."
-  description[en]: "Recommended. Essential base components for networking, audio, fonts, codecs, and hardware drivers."
+  description: "Recommended. Essential base packages for networking, audio, fonts, codecs, and hardware drivers."
   hidden: false
   selected: true
   critical: true
+  expanded: false
   subgroups:
-      - name: "Network"
-        description: "Controladores, herramientas y servicios de red y conexiones"
-        selected: true
-        packages:
-          - dnsmasq
-          - dnsutils
-          - ethtool
-          - iwd
-          - modemmanager
-          - networkmanager
-          - networkmanager-openvpn
-          - nss-mdns
-          - usb_modeswitch
-          - wpa_supplicant
-          - wireless-regdb
-          - xl2tpd
+    - name: "Network"
+      description: "Network management, wireless drivers and connection utilities"
+      selected: true
+      packages:
+        - dnsmasq
+        - dnsutils
+        - ethtool
+        - iwd
+        - modemmanager
+        - networkmanager
+        - networkmanager-openvpn
+        - nss-mdns
+        - usb_modeswitch
+        - wpa_supplicant
+        - wireless-regdb
+        - xl2tpd
 
-      - name: "firewall"
-        description: "Cortafuegos y seguridad predeterminada"
-        selected: true
-        platform: "desktop"
-        packages:
-          - ufw
-          - ufw-extras
+    - name: "Firewall"
+      description: "Default firewall and security rules (UFW)"
+      selected: true
+      packages:
+        - ufw
+        - ufw-extras
 
-      - name: "bluetooth"
-        description: "Pila completa de soporte Bluetooth"
-        selected: true
-        packages:
-          - bluez
-          - bluez-hid2hci
-          - bluez-libs
-          - bluez-utils
-          - bluez-obex
+    - name: "Bluetooth"
+      description: "Complete Bluetooth stack and device management utilities (BlueZ)"
+      selected: true
+      packages:
+        - bluez
+        - bluez-cups
+        - bluez-deprecated-tools
+        - bluez-hid2hci
+        - bluez-libs
+        - bluez-obex
+        - bluez-plugins
+        - bluez-tools
+        - bluez-utils
 
-      - name: "packages management"
-        description: "Herramientas de gestión y optimización de paquetes"
-        selected: true
-        packages:
-          - pacman-contrib
-          - pkgfile
-          - rebuild-detector
-          - reflector
-          - shelly
+    - name: "Package Management"
+      description: "Advanced package management, mirror ranking, and pacman utilities"
+      selected: true
+      packages:
+        - pacman-contrib
+        - pkgfile
+        - reflector
 
-      - name: "desktop integration"
-        description: "Códecs multimedia, miniaturas e integración del entorno de escritorio"
-        selected: true
-        packages:
-          - accountsservice
-          - bash-completion
-          - ffmpegthumbnailer
-          - gst-libav
-          - gst-plugin-pipewire
-          - gst-plugins-bad
-          - gst-plugins-ugly
-          - libdvdcss
-          - libgsf
-          - libopenraw
-          - plocate
-          - poppler-glib
-          - vlc-plugins-all
-          - xdg-user-dirs
-          - xdg-utils
+    - name: "Desktop Integration"
+      description: "Multimedia codecs, GStreamer plugins, and desktop integration tools"
+      selected: true
+      packages:
+        - accountsservice
+        - ffmpegthumbnailer
+        - gst-libav
+        - gst-plugin-pipewire
+        - gst-plugins-bad
+        - gst-plugins-base
+        - gst-plugins-good
+        - gst-plugins-ugly
+        - libdvdcss
+        - poppler-glib
+        - xdg-user-dirs
+        - xdg-utils
 
-      - name: "filesystem"
-        description: "Utilidades de sistemas de archivos y compresión"
-        selected: true
-        packages:
-          - efitools
-          - nfs-utils
-          - nilfs-utils
-          - smartmontools
-          - unrar
-          - unzip
+    - name: "Filesystem"
+      description: "Filesystem maintenance tools, disk diagnostics, and archive extractors"
+      selected: true
+      packages:
+        - dosfstools
+        - efitools
+        - exfatprogs
+        - f2fs-tools
+        - mtools
+        - nfs-utils
+        - nilfs-utils
+        - ntfs-3g
+        - smartmontools
+        - unrar
+        - unzip
 
-      - name: "fonts"
-        description: "Colección tipográfica completa (Noto, Nerd Fonts, DejaVu, Emojis)"
-        selected: true
-        packages:
-          - awesome-terminal-fonts
-          - noto-fonts-emoji
-          - cantarell-fonts
-          - noto-fonts
-          - ttf-bitstream-vera
-          - ttf-dejavu
-          - ttf-liberation
-          - ttf-opensans
-          - ttf-meslo-nerd
-          - noto-fonts-cjk
+    - name: "Fonts"
+      description: "Complete font collection, emojis, CJK support, and Nerd Fonts"
+      selected: true
+      packages:
+        - cantarell-fonts
+        - noto-fonts
+        - noto-fonts-cjk
+        - noto-fonts-emoji
+        - ttf-dejavu
+        - ttf-liberation
+        - ttf-meslo-nerd
 
-      - name: "audio"
-        description: "Pila de audio de ultra-baja latencia PipeWire y ALSA"
-        selected: true
-        packages:
-          - alsa-firmware
-          - alsa-plugins
-          - alsa-utils
-          - pavucontrol
-          - pipewire-pulse
-          - wireplumber
-          - pipewire-alsa
-          - realtime-privileges
+    - name: "Audio"
+      description: "Low-latency PipeWire audio stack, ALSA utilities, and WirePlumber"
+      selected: true
+      packages:
+        - alsa-plugins
+        - alsa-utils
+        - pavucontrol
+        - pipewire-alsa
+        - pipewire-pulse
+        - realtime-privileges
+        - wireplumber
 
-      - name: "hardware"
-        description: "Firmware de hardware y utilidades gráficas"
-        selected: true
-        packages:
-          - dmidecode
-          - dmraid
-          - hdparm
-          - hwdetect
-          - linux-firmware
-          - lsscsi
-          - mesa-utils
-          - mtools
-          - sg3_utils
-          - sof-firmware
+    - name: "Hardware"
+      description: "Hardware support libraries, firmware packages, and GPU utilities"
+      selected: true
+      packages:
+        - dmidecode
+        - dmraid
+        - hdparm
+        - hwdetect
+        - linux-firmware
+        - lsscsi
+        - mesa-utils
+        - sg3_utils
+        - sof-firmware
 
-      - name: "power"
-        description: "Gestión de energía y perfiles de rendimiento del CPU"
-        selected: true
-        packages:
-          - cpupower
-          - power-profiles-daemon
-          - upower
+    - name: "Power"
+      description: "Power profiles, CPU frequency management, and battery optimization daemons"
+      selected: true
+      packages:
+        - cpupower
+        - power-profiles-daemon
+        - upower
 
-      - name: "Some applications selection"
-        description: "Arsenal de utilidades de consola y herramientas esenciales"
-        selected: true
-        packages:
-          - alacritty
-          - btop
-          - duf
-          - fsarchiver
-          - git
-          - glances
-          - hwinfo
-          - meld
-          - nano-syntax-highlighting
-          - fastfetch
-          - pv
-          - python-defusedxml
-          - python-packaging
-          - rsync
-          - wget
-          - ripgrep
-          - micro
-          - nano
-          - vim
-          - openssh
+    - name: "Console Applications"
+      description: "Essential command-line utilities, text editors, and developer tools"
+      selected: true
+      packages:
+        - btop
+        - fastfetch
+        - git
+        - micro
+        - nano
+        - nano-syntax-highlighting
+        - openssh
+        - pv
+        - python-defusedxml
+        - python-packaging
+        - ripgrep
+        - rsync
+        - vim
+        - wget
 
 - name: "X64 Handhelds"
-  description: "Paquetes esenciales para consolas portátiles (Steam Deck, ROG Ally, etc.)"
-  platform: "handheld"
+  description: "Optional utilities for handheld gaming consoles (Steam Deck, ROG Ally, Legion Go)"
   hidden: false
-  selected: true
-  critical: true
+  selected: false
+  critical: false
   packages:
     - powerstation
     - sc-controller
 
 - name: "KDE-Desktop"
-  description: "KDE-Plasma Desktop - Simple por defecto, potente cuando se necesita. Buque insignia oficial de X64 LIOS."
-  description[en]: "KDE-Plasma Desktop - Simple by default, powerful when needed. Official flagship of X64 LIOS."
+  description: "KDE Plasma 6 - Simple by default, powerful when needed. Official flagship of X64 LIOS."
   hidden: false
   selected: false
   critical: true
@@ -249,91 +229,80 @@
     - phonon-qt6-vlc
     - plasma-browser-integration
     - plasma-desktop
-    - plasma-firewall
+    - plasma-disks
     - plasma-nm
     - plasma-pa
     - plasma-systemmonitor
-    - plasma-thunderbolt
-    - plymouth-kcm
+    - plasma-vault
+    - plasma-workspace-wallpapers
     - powerdevil
-    - plasma-login-manager
+    - print-manager
+    - sddm
+    - sddm-kcm
+    - skanpage
     - spectacle
-    - tesseract-data-eng
-    - xsettingsd
 
 - name: "GNOME-Desktop"
-  description: "GNOME - Experiencia limpia, centrada y elegante con diseño moderno basado en gestos."
-  description[en]: "GNOME - Clean, focused, and elegant desktop experience with modern gesture workflow."
-  platform: "desktop"
+  description: "GNOME - Clean, focused, and elegant desktop experience with modern gesture workflow."
   hidden: false
   selected: false
   critical: true
   packages:
-    - cachy-update
-    - fwupd
-    - gdm
-    - gnome-text-editor
-    - gnome-backgrounds
-    - ptyxis
-    - gnome-control-center
-    - gnome-keyring
-    - gnome-shell
-    - gnome-tweaks
-    - libnma
-    - sushi
-    - nautilus
     - file-roller
-    - loupe
-    - simple-scan
+    - gdm
+    - gnome-backgrounds
+    - gnome-bluetooth-3.0
+    - gnome-color-manager
+    - gnome-control-center
     - gnome-disk-utility
-    - gnome-calculator
-    - baobab
+    - gnome-keyring
+    - gnome-menus
+    - gnome-session
+    - gnome-settings-daemon
+    - gnome-shell
+    - gnome-shell-extensions
+    - gnome-text-editor
+    - gnome-tweaks
+    - gnome-user-docs
+    - gnome-user-share
+    - gvfs
+    - gvfs-afc
+    - gvfs-goa
+    - gvfs-google
+    - gvfs-gphoto2
+    - gvfs-mtp
+    - gvfs-nfs
+    - gvfs-smb
+    - loupe
+    - mutter
+    - nautilus
+    - sushi
+    - xdg-user-dirs-gtk
 
 - name: "Cosmic"
-  description: "COSMIC - Escritorio modular de próxima generación desarrollado en Rust por System76."
-  description[en]: "COSMIC - Next-generation modular desktop environment developed in Rust by System76."
-  platform: "desktop"
+  description: "COSMIC - Next-generation modular desktop developed in Rust by System76."
   hidden: false
   selected: false
   critical: true
   packages:
+    - cosmic-session
+    - cosmic-greeter
+    - cosmic-comp
+    - cosmic-panel
     - cosmic-app-library
     - cosmic-applets
     - cosmic-bg
-    - cosmic-comp
     - cosmic-files
-    - cosmic-greeter
-    - cosmic-icon-theme
-    - cosmic-launcher
-    - cosmic-notifications
-    - cosmic-osd
-    - cosmic-monitor
-    - cosmic-panel
-    - cosmic-player
-    - cosmic-randr
-    - cosmic-screenshot
-    - cosmic-session
-    - cosmic-settings
-    - cosmic-settings-daemon
     - cosmic-terminal
-    - cosmic-initial-setup
-    - cosmic-text-editor
-    - cosmic-wallpapers
+    - cosmic-settings
     - cosmic-workspaces
-    - cosmic-viewer
-    - notification-daemon
     - xdg-desktop-portal-cosmic
-    - xdg-desktop-portal-gtk
     - gnome-keyring
-    - xorg-xwayland
 
 - name: "Niri"
-  description: "Niri - Compositor Wayland moderno con mosaico desplazable en cinta horizontal."
-  description[en]: "Niri - A modern scrollable-tiling Wayland compositor with horizontal ribbon workflow."
-  platform: "desktop"
+  description: "Niri - Modern scrollable-tiling Wayland compositor with horizontal ribbon workflow."
   hidden: false
   selected: false
-  expanded: false
   critical: true
   packages:
     - niri
@@ -345,145 +314,119 @@
     - xdg-desktop-portal-gnome
 
 - name: "Cinnamon"
-  description: "Cinnamon - Experiencia de escritorio tradicional, intuitiva y robusta."
-  description[en]: "Cinnamon - Traditional, intuitive, and robust Linux desktop environment."
-  platform: "desktop"
+  description: "Cinnamon - Traditional, intuitive, and robust desktop experience."
   hidden: false
   selected: false
   critical: true
   packages:
     - cinnamon
     - cinnamon-translations
-    - system-config-printer
-    - gnome-keyring
-    - gnome-terminal
-    - metacity
+    - nemo
     - lightdm
     - lightdm-slick-greeter
+    - gnome-keyring
+    - gnome-terminal
 
 - name: "Xfce4"
-  description: "Xfce 4 - Entorno de escritorio ligero y rápido para máximo ahorro de recursos."
-  description[en]: "Xfce 4 - Lightweight desktop environment designed to be fast and low on system resources."
-  platform: "desktop"
+  description: "Xfce 4 - Lightweight and ultra-fast desktop environment for maximum resource efficiency."
   hidden: false
   selected: false
   critical: true
   packages:
     - xfce4
     - xfce4-goodies
-    - blueman
-    - file-roller
-    - galculator
-    - gvfs
     - lightdm
     - lightdm-gtk-greeter
-    - lightdm-gtk-greeter-settings
-    - network-manager-applet
-    - parole
-    - ristretto
     - thunar
-    - thunar-archive-plugin
-    - thunar-media-tags-plugin
+    - file-roller
+    - ristretto
+    - network-manager-applet
 
 - name: "Hyprland"
-  description: "Hyprland - Compositor Wayland de mosaico dinámico con estética hacker y animaciones fluidas."
-  description[en]: "Hyprland - Highly customizable dynamic tiling Wayland compositor with fluid animations."
-  platform: "desktop"
+  description: "Hyprland - Dynamic tiling Wayland compositor with hacker aesthetic and fluid animations."
   hidden: false
   selected: false
-  expanded: false
   critical: true
   packages:
     - hyprland
+    - sddm
     - dolphin
     - kitty
-    - sddm
     - waybar
     - rofi-wayland
     - dunst
     - xdg-desktop-portal-hyprland
 
-- name: "Navegadores Web"
-  description: "Navegadores web populares y optimizados"
-  description[en]: "Popular and optimized web browsers"
+- name: "X64-Server-Core"
+  description: "Minimal installation for X64 servers without a graphical environment."
   hidden: false
   selected: false
   critical: false
-  subgroups:
-      - name: "Chromium (Predeterminado)"
-        description: "Navegador de alta velocidad predeterminado en la ISO"
-        packages:
-          - chromium
-      - name: "Mozilla Firefox"
-        description: "Navegador libre con paquete de idioma automático"
-        packages:
-          - firefox
-          - firefox-i18n-$LOCALE
-      - name: "Brave Browser"
-        description: "Navegador enfocado en privacidad y bloqueo nativo de publicidad"
-        packages:
-          - brave-bin
-      - name: "Zen Browser"
-        description: "Navegador de última generación basado en Firefox con pestañas verticales"
-        packages:
-          - zen-browser-bin
-      - name: "LibreWolf"
-        description: "Versión endurecida de Firefox sin telemetría ni rastreo"
-        packages:
-          - librewolf-bin
-      - name: "Google Chrome"
-        description: "Navegador oficial de Google"
-        packages:
-          - google-chrome
-      - name: "Vivaldi"
-        description: "Navegador avanzado con personalización profunda de interfaz"
-        packages:
-          - vivaldi
+  packages:
+    - openssh
+    - git
 
-- name: "Printing-Support"
-  description: "Soporte completo para impresión de documentos (CUPS)"
-  description[en]: "Support for printing (Cups)"
-  platform: "desktop"
+- name: "Web Browsers"
+  description: "Popular and optimized web browsers"
   hidden: false
   selected: false
-  critical: true
+  critical: false
+  expanded: false
+  subgroups:
+    - name: "Chromium"
+      description: "Open-source browser, fast and secure baseline"
+      packages:
+        - chromium
+    - name: "Firefox"
+      description: "Extensible open-source browser with localized language support"
+      packages:
+        - firefox
+        - firefox-i18n-en-us
+    - name: "Brave Browser"
+      description: "Privacy-focused browser with built-in ad and tracker blocking"
+      packages:
+        - brave-bin
+    - name: "Zen Browser"
+      description: "Modern Firefox-based browser with vertical tabs and sleek styling"
+      packages:
+        - zen-browser-bin
+    - name: "LibreWolf"
+      description: "Hardened browser focused on privacy and telemetry removal"
+      packages:
+        - librewolf-bin
+    - name: "Google Chrome"
+      description: "Google's official web browser"
+      packages:
+        - google-chrome
+    - name: "Vivaldi"
+      description: "Feature-packed browser with extreme tab customization"
+      packages:
+        - vivaldi
+
+- name: "Printing-Support"
+  description: "Complete printing support and PDF virtual printer (CUPS)"
+  hidden: false
+  selected: false
+  critical: false
   packages:
     - cups
     - cups-filters
     - cups-pdf
-    - foomatic-db
-    - foomatic-db-engine
-    - foomatic-db-gutenprint-ppds
-    - foomatic-db-nonfree
-    - foomatic-db-nonfree-ppds
-    - foomatic-db-ppds
-    - ghostscript
-    - gsfonts
-    - gutenprint
     - system-config-printer
 
 - name: "Support for HP Printer/Scanner"
-  description: "Controladores y herramientas para impresoras y escáneres HP"
-  description[en]: "Extra Packages for HP Printer/Scanner"
-  platform: "desktop"
+  description: "Extra drivers and utilities for HP printers and scanners (HPLIP)"
   hidden: false
   selected: false
-  critical: true
+  critical: false
   packages:
     - hplip
-    - python-pyqt5
-    - python-reportlab
-    - cups
-    - cups-filters
-    - cups-pdf
 
 - name: "Accessibility Tools"
-  description: "Herramientas de accesibilidad y lector de pantalla"
-  description[en]: "Screen reader and accessibility tweaks"
+  description: "Screen reader and accessibility utilities for impaired vision"
   hidden: false
   selected: false
-  critical: true
+  critical: false
   packages:
     - espeak-ng
-    - mousetweaks
     - orca
