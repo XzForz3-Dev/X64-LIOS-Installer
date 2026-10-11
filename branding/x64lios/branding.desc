@@ -1,7 +1,7 @@
 ---
 componentName:   x64lios
-windowExpanding: no
-windowSize:      1000px, 680px
+windowExpanding: normal
+windowSize:      1100px, 520px
 windowPlacement: center
 
 sidebar: qml,top
@@ -22,8 +22,8 @@ strings:
     donateUrl:           "https://x64lios.com/donate"
 
 images:
-    productIcon:         ""
-    productLogo:         ""
+    productIcon:         "icon.png"
+    productLogo:         "icon.png"
     productWelcome:      "welcome.png"
 
 style:
