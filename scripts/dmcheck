@@ -1,47 +1,53 @@
-#!/bin/bash
-#set -e
-###############################################################################
-# Author    :   Erik Dubois
-# Website   :   https://www.erikdubois.be
-# Website   :   https://www.arcolinux.info
-# Website   :   https://www.arcolinux.com
-# Website   :   https://www.arcolinuxd.com
-# Website   :   https://www.arcolinuxb.com
-# Website   :   https://www.arcolinuxiso.com
-# Website   :   https://www.arcolinuxforum.com
-###############################################################################
+#!/usr/bin/env bash
+#==============================================================================
+# X64 LIOS Linux - Display Manager Enabler (dmcheck)
+# Detects installed graphical environments and enables the corresponding
+# systemd display-manager.service without false positives or race conditions.
+#==============================================================================
 
-package=ly
-if pacman -Qs $package > /dev/null ; then
-  rm -f /etc/systemd/system/getty.target.wants/getty@tty2.service
-  ln -sf /usr/lib/systemd/system/ly@.service /etc/systemd/system/multi-user.target.wants/ly@tty2.service
+set -e
+
+# Function to check if a package is explicitly installed (exact match)
+is_installed() {
+    pacman -Qq "$1" >/dev/null 2>&1
+}
+
+echo ":: [X64 LIOS] Configuring Display Manager..."
+
+# Remove any pre-existing or broken symlink
+rm -f /etc/systemd/system/display-manager.service
+
+# Priority hierarchy based on installed desktop stacks:
+# 1. SDDM (KDE Plasma 6, Hyprland, Niri)
+# 2. GDM (GNOME)
+# 3. COSMIC Greeter (COSMIC Desktop)
+# 4. LightDM (Xfce4, Cinnamon)
+# 5. Ly (Console/minimal TTY2 greeter)
+# 6. Greetd (Generic Wayland greeter)
+
+if is_installed "sddm"; then
+    echo ":: [X64 LIOS] Enabling SDDM display manager..."
+    ln -sf /usr/lib/systemd/system/sddm.service /etc/systemd/system/display-manager.service
+elif is_installed "gdm"; then
+    echo ":: [X64 LIOS] Enabling GDM display manager..."
+    ln -sf /usr/lib/systemd/system/gdm.service /etc/systemd/system/display-manager.service
+elif is_installed "cosmic-greeter"; then
+    echo ":: [X64 LIOS] Enabling COSMIC Greeter display manager..."
+    ln -sf /usr/lib/systemd/system/cosmic-greeter.service /etc/systemd/system/display-manager.service
+elif is_installed "lightdm"; then
+    echo ":: [X64 LIOS] Enabling LightDM display manager..."
+    ln -sf /usr/lib/systemd/system/lightdm.service /etc/systemd/system/display-manager.service
+elif is_installed "ly"; then
+    echo ":: [X64 LIOS] Enabling Ly display manager on TTY2..."
+    rm -f /etc/systemd/system/getty.target.wants/getty@tty2.service
+    mkdir -p /etc/systemd/system/multi-user.target.wants
+    ln -sf /usr/lib/systemd/system/ly@.service /etc/systemd/system/multi-user.target.wants/ly@tty2.service
+elif is_installed "greetd"; then
+    echo ":: [X64 LIOS] Enabling Greetd display manager..."
+    ln -sf /usr/lib/systemd/system/greetd.service /etc/systemd/system/display-manager.service
+else
+    echo ":: [X64 LIOS] No graphical Display Manager detected (Pure CLI / No Desktop). Keeping clean TTY."
+    rm -f /etc/systemd/system/display-manager.service
 fi
-package=plasma-login-manager
-if pacman -Qs $package > /dev/null ; then
-  ln -sf /usr/lib/systemd/system/plasmalogin.service /etc/systemd/system/display-manager.service
-fi
-package=sddm
-if pacman -Qs $package > /dev/null ; then
-  ln -sf /usr/lib/systemd/system/sddm.service /etc/systemd/system/display-manager.service
-fi
-package=gdm
-if pacman -Qs $package > /dev/null ; then
-  ln -sf /usr/lib/systemd/system/gdm.service /etc/systemd/system/display-manager.service
-fi
-package=cosmic-greeter
-if pacman -Qs $package > /dev/null ; then
-  ln -sf /usr/lib/systemd/system/cosmic-greeter.service /etc/systemd/system/display-manager.service
-fi
-package=lxdm
-if pacman -Qs $package > /dev/null ; then
-  ln -sf /usr/lib/systemd/system/lxdm.service /etc/systemd/system/display-manager.service
-fi
-package=lightdm
-if pacman -Qs $package > /dev/null ; then
-  ln -sf /usr/lib/systemd/system/lightdm.service /etc/systemd/system/display-manager.service
-fi
-# FIXME: should also support greetd, but not break cosmic-greeter...
-package=noctalia-greeter
-if pacman -Qs $package > /dev/null ; then
-  ln -sf /usr/lib/systemd/system/greetd.service /etc/systemd/system/display-manager.service
-fi
+
+echo ":: [X64 LIOS] Display Manager configuration complete."
