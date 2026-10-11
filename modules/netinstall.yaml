@@ -1,0 +1,190 @@
+# SPDX-FileCopyrightText: no
+# SPDX-License-Identifier: CC0-1.0
+#
+# Configuración Oficial de Paquetes Netinstall para X64 LIOS Linux
+---
+- name: "X64 LIOS Core System"
+  description: "Paquetes esenciales del núcleo, optimizaciones FalconD, Ananicy y soporte de hardware"
+  hidden: true
+  selected: true
+  critical: true
+  packages:
+    - cachyos-hooks
+    - cachyos-keyring
+    - cachyos-mirrorlist
+    - cachyos-v3-mirrorlist
+    - chwd
+    - falcond
+    - falcond-profiles
+    - ananicy-cpp
+    - cachyos-ananicy-rules
+    - cachyos-settings
+    - zram-generator
+    - x64-welcome
+    - x64-theme-live
+    - kitty
+    - fish
+
+- name: "X64 LIOS Kernel"
+  description: "Kernel optimizado de ultra-bajo retraso para Gaming"
+  hidden: true
+  selected: true
+  critical: true
+  packages:
+    - linux-cachyos
+    - linux-cachyos-headers
+
+- name: "KDE-Desktop"
+  description: "KDE Plasma 6 - Entorno oficial y buque insignia de X64 LIOS. Potente, personalizable y moderno."
+  description[en]: "KDE Plasma 6 - The official flagship desktop of X64 LIOS. Powerful, customizable, and modern."
+  hidden: false
+  selected: false
+  critical: true
+  packages:
+    - plasma-desktop
+    - sddm
+    - dolphin
+    - konsole
+    - plasma-nm
+    - plasma-pa
+    - kscreen
+    - powerdevil
+    - breeze-gtk
+    - kde-gtk-config
+    - kdialog
+    - kinfocenter
+    - plasma-systemmonitor
+    - spectacle
+    - ark
+    - filelight
+    - kwallet-pam
+
+- name: "GNOME-Desktop"
+  description: "GNOME - Experiencia limpia, centrada y elegante con diseño moderno basado en gestos."
+  description[en]: "GNOME - Clean, focused, and elegant desktop experience with modern gesture workflow."
+  hidden: false
+  selected: false
+  critical: true
+  packages:
+    - gdm
+    - gnome-shell
+    - gnome-control-center
+    - gnome-text-editor
+    - gnome-keyring
+    - gnome-tweaks
+    - nautilus
+    - gnome-disk-utility
+    - file-roller
+    - loupe
+    - sushi
+
+- name: "Cosmic"
+  description: "COSMIC - Escritorio modular de próxima generación desarrollado en Rust por System76."
+  description[en]: "COSMIC - Next-generation modular desktop developed in Rust by System76."
+  hidden: false
+  selected: false
+  critical: true
+  packages:
+    - cosmic-session
+    - cosmic-greeter
+    - cosmic-comp
+    - cosmic-panel
+    - cosmic-app-library
+    - cosmic-applets
+    - cosmic-bg
+    - cosmic-files
+    - cosmic-terminal
+    - cosmic-settings
+    - cosmic-workspaces
+    - xdg-desktop-portal-cosmic
+    - gnome-keyring
+
+- name: "Niri"
+  description: "Niri - Compositor Wayland scrollable en cinta horizontal con mosaico dinámico."
+  description[en]: "Niri - Scrollable-tiling Wayland compositor with horizontal ribbon workflow."
+  hidden: false
+  selected: false
+  critical: true
+  packages:
+    - niri
+    - sddm
+    - kitty
+    - dolphin
+    - fuzzel
+    - waybar
+    - xdg-desktop-portal-gnome
+
+- name: "Cinnamon"
+  description: "Cinnamon - Experiencia de escritorio tradicional, intuitiva y robusta."
+  description[en]: "Cinnamon - Traditional, intuitive, and robust Linux desktop environment."
+  hidden: false
+  selected: false
+  critical: true
+  packages:
+    - cinnamon
+    - cinnamon-translations
+    - nemo
+    - lightdm
+    - lightdm-slick-greeter
+    - gnome-keyring
+    - gnome-terminal
+
+- name: "Xfce4"
+  description: "Xfce 4 - Entorno de escritorio ultra-ligero y rápido para máximo aprovechamiento de recursos."
+  description[en]: "Xfce 4 - Ultra-lightweight and fast desktop environment for maximum resource efficiency."
+  hidden: false
+  selected: false
+  critical: true
+  packages:
+    - xfce4
+    - xfce4-goodies
+    - lightdm
+    - lightdm-gtk-greeter
+    - thunar
+    - file-roller
+    - ristretto
+    - network-manager-applet
+
+- name: "Hyprland"
+  description: "Hyprland - Compositor Wayland dinámico de alto rendimiento con animaciones fluidas."
+  description[en]: "Hyprland - Dynamic tiling Wayland compositor with fluid animations and hacker aesthetic."
+  hidden: false
+  selected: false
+  critical: true
+  packages:
+    - hyprland
+    - sddm
+    - dolphin
+    - kitty
+    - waybar
+    - rofi-wayland
+    - dunst
+    - xdg-desktop-portal-hyprland
+
+- name: "Gaming & Optimización"
+  description: "Herramientas de alto rendimiento y lanzadores para videojuegos"
+  hidden: false
+  selected: false
+  critical: false
+  subgroups:
+    - name: "Lanzadores de Juegos"
+      description: "Plataformas y tiendas de videojuegos"
+      packages:
+        - steam
+        - lutris
+    - name: "Utilidades de Rendimiento Gaming"
+      description: "Herramientas de overlay, optimización de CPU y escalado"
+      packages:
+        - gamemode
+        - gamescope
+        - mangohud
+        - goverlay
+
+- name: "Navegadores Web"
+  description: "Navegadores de internet recomendados"
+  hidden: false
+  selected: false
+  critical: false
+  packages:
+    - chromium
+    - firefox
