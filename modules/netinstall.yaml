@@ -360,16 +360,18 @@
 - name: "Web Browsers"
   description: "Popular and optimized web browsers"
   hidden: false
-  selected: false
+  selected: true
   critical: false
   expanded: false
   subgroups:
     - name: "Chromium"
-      description: "Open-source browser, fast and secure baseline"
+      description: "Default official web browser for X64 LIOS, fast and secure baseline"
+      selected: true
       packages:
         - chromium
     - name: "Firefox"
       description: "Extensible open-source browser with localized language support"
+      selected: false
       packages:
         - firefox
         - firefox-i18n-en-us
