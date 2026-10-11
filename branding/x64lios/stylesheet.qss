@@ -34,16 +34,25 @@ QListView#stepList::item:selected {
 
 /* Buttons */
 QPushButton {
+    qproperty-icon: url();
+    qproperty-iconSize: 0px 0px;
     background-color: #1f1f22;
     color: #ffffff;
     border: 1px solid #333336;
     border-radius: 6px;
-    padding: 8px 16px;
+    padding: 8px 20px;
     font-weight: 500;
+    outline: none;
 }
 QPushButton:hover {
     background-color: #2a2a2d;
-    border-color: #444448;
+    border-color: #555558;
+}
+QPushButton:focus {
+    border: 1px solid #b31b1b;
+}
+QPushButton:default {
+    border: 1px solid #b31b1b;
 }
 QPushButton:pressed {
     background-color: #b31b1b;
