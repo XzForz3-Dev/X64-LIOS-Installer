@@ -66,6 +66,40 @@ def run_in_host(command, line_func):
         raise PacmanError("Failed to run pacman")
 
 
+def get_target_platform():
+    """Detect platform: handheld (Steam Deck, ROG Ally, etc.) or desktop."""
+    if hasattr(libcalamares.utils, "get_target_platform"):
+        try:
+            return libcalamares.utils.get_target_platform()
+        except Exception:
+            pass
+
+    # Pure kernel DMI sysfs detection for handhelds
+    try:
+        vendor, prod = "", ""
+        if os.path.exists("/sys/class/dmi/id/sys_vendor"):
+            with open("/sys/class/dmi/id/sys_vendor", "r") as f:
+                vendor = f.read().lower().strip()
+        if os.path.exists("/sys/class/dmi/id/product_name"):
+            with open("/sys/class/dmi/id/product_name", "r") as f:
+                prod = f.read().lower().strip()
+
+        handheld_signatures = [
+            "valve", "jupiter", "galileo",
+            "rog ally", "rc71l", "rc72l",
+            "legion go", "83e1",
+            "ayaneo", "ayan-eo",
+            "gpd", "win 4", "win max", "win mini",
+            "onexplayer", "aokzoe", "claw"
+        ]
+        if any(sig in vendor or sig in prod for sig in handheld_signatures):
+            return "handheld"
+    except Exception as e:
+        libcalamares.utils.debug("Handheld DMI detection check: {!s}".format(e))
+
+    return "desktop"
+
+
 def run():
     """
     Installs the base system packages and copies files post-installation
@@ -91,7 +125,7 @@ def run():
     else:
         return "No configuration found", "Aborting due to missing configuration"
 
-    if libcalamares.utils.get_target_platform() == "handheld":
+    if get_target_platform() == "handheld":
         base_packages += ["linux-cachyos-deckify", "linux-cachyos-deckify-headers"]
     else:
         base_packages += ["linux-cachyos", "linux-cachyos-headers",
@@ -136,7 +170,7 @@ def run():
 
     if (is_root_on_zfs):
         base_packages += ["zfs-utils"]
-        if libcalamares.utils.get_target_platform() == "handheld":
+        if get_target_platform() == "handheld":
             base_packages += ["linux-cachyos-deckify-zfs"]
         else:
             base_packages += ["linux-cachyos-zfs", "linux-cachyos-lts-zfs"]
