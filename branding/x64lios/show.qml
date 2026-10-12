@@ -86,12 +86,12 @@ Presentation
                 font.pixelSize: 20
                 font.bold: true
                 wrapMode: Text.WordWrap
-                Layout.fillWidth: true
+                Layout.preferredWidth: 680
             }
 
             // Línea Divisoria Carmesí
             Rectangle {
-                Layout.fillWidth: true
+                Layout.preferredWidth: 680
                 height: 2
                 color: "#801212"
             }
@@ -102,7 +102,7 @@ Presentation
                 color: "#a8a8b6"
                 font.pixelSize: 13
                 wrapMode: Text.WordWrap
-                Layout.fillWidth: true
+                Layout.preferredWidth: 680
                 lineHeight: 1.2
             }
 
@@ -110,7 +110,7 @@ Presentation
 
             // Lista de Puntos Clave
             ColumnLayout {
-                Layout.fillWidth: true
+                Layout.preferredWidth: 680
                 spacing: 8
 
                 RowLayout {
@@ -131,7 +131,7 @@ Presentation
                         color: "#c8c8d2"
                         font.pixelSize: 12
                         wrapMode: Text.WordWrap
-                        Layout.fillWidth: true
+                        Layout.preferredWidth: 650
                     }
                 }
 
@@ -153,7 +153,7 @@ Presentation
                         color: "#c8c8d2"
                         font.pixelSize: 12
                         wrapMode: Text.WordWrap
-                        Layout.fillWidth: true
+                        Layout.preferredWidth: 650
                     }
                 }
 
@@ -175,12 +175,27 @@ Presentation
                         color: "#c8c8d2"
                         font.pixelSize: 12
                         wrapMode: Text.WordWrap
-                        Layout.fillWidth: true
+                        Layout.preferredWidth: 650
                     }
                 }
             }
 
             Item { Layout.fillHeight: true }
+        }
+
+        // Cubo Tecnológico Isométrico X64 LIOS en la esquina inferior derecha
+        Image {
+            id: cubeGraphic
+            source: "cube.png"
+            width: 175
+            height: 175
+            fillMode: Image.PreserveAspectFit
+            anchors.right: parent.right
+            anchors.rightMargin: 36
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 32
+            smooth: true
+            mipmap: true
         }
 
         // Indicador de Progreso de Diapositivas (Pills animadas)
@@ -212,80 +227,80 @@ Presentation
     // SLIDE 1
     Slide {
         X64SlideContent {
-            tagText: "X64 LIOS • FILOSOFÍA SOBERANA"
+            tagText: "X64 LIOS • ARQUITECTURA HÍBRIDA"
             slideNumber: "01 / 05"
             titleText: "Máximo Rendimiento Bare-Metal y Gaming Competitivo"
-            descText: "Diseñado desde cero para exprimir el 100% de tu hardware sin intermediarios, telemetría oculta ni servicios que consuman recursos en segundo plano."
-            feat1Title: "Base Arch Linux Pura"
-            feat1Desc: "Control total de tu máquina, actualizaciones continuas y máxima estabilidad operativa."
-            feat2Title: "Cero Bloatware"
-            feat2Desc: "Solo el software esencial que necesitas, sin dependencias superfluas ni servicios pesados."
-            feat3Title: "Arquitectura Optimizada"
-            feat3Desc: "Tiempos de arranque ultrarrápidos y respuesta instantánea del sistema operativo."
+            descText: "Diseñado desde cero para exprimir el 100% de tu hardware. Un sistema operativo puro, sin capas innecesarias, telemetría oculta ni servicios que roben FPS en segundo plano."
+            feat1Title: "Rolling Release Híbrido"
+            feat1Desc: "La vanguardia de Arch con la estabilidad de Debian: kernel y drivers siempre al día para jugar, con la libertad de congelar paquetes críticos para que nada se rompa."
+            feat2Title: "Base Arch Linux Pura"
+            feat2Desc: "Control total de tu máquina y despliegue fresco de paquetes directamente desde la red."
+            feat3Title: "Zero Bloatware"
+            feat3Desc: "Solo los componentes esenciales para jugar y crear, garantizando latencias mínimas y arranque récord."
         }
     }
 
     // SLIDE 2
     Slide {
         X64SlideContent {
-            tagText: "KERNEL & HARDWARE"
+            tagText: "NÚCLEO & REPOSITORIOS X64"
             slideNumber: "02 / 05"
-            titleText: "Núcleo CachyOS & Latencia Ultrabaja"
-            descText: "Impulsado por el kernel Linux CachyOS, adaptado con las técnicas de compilación y planificación más avanzadas del ecosistema de código abierto."
-            feat1Title: "Planificador BORE"
-            feat1Desc: "Respuesta interactiva garantizada y máxima estabilidad de frametimes en juegos bajo carga pesada."
-            feat2Title: "Instrucciones x86-64-v3"
-            feat2Desc: "Aprovecha extensiones vectoriales modernas (AVX2, FMA) para mayor tasa de procesamiento."
-            feat3Title: "ZRAM con ZSTD"
-            feat3Desc: "Compresión de memoria RAM en tiempo real que previene cuellos de botella en multitarea."
+            titleText: "Detección Inteligente de CPU y Repositorio Oficial X64"
+            descText: "El instalador analiza tu procesador en tiempo real. Si detecta una CPU moderna activa repositorios de microarquitectura avanzada; si detecta hardware clásico, aplica el fallback seguro para máxima compatibilidad."
+            feat1Title: "Microarquitectura a Medida"
+            feat1Desc: "Detección de x86-64-v3 (AVX2) y v4 (AVX-512), con fallback automático a x86-64-v1 y v2 para procesadores legacy."
+            feat2Title: "Repositorio Oficial X64"
+            feat2Desc: "Servidores dedicados con paquetes propios, herramientas exclusivas y parches compilados por nuestro equipo."
+            feat3Title: "Kernel CachyOS & BORE"
+            feat3Desc: "Planificador interactivo de tareas y ZRAM (ZSTD) que garantizan frametimes planos en cualquier juego."
         }
     }
 
     // SLIDE 3
     Slide {
         X64SlideContent {
-            tagText: "ECOSISTEMA GAMING"
+            tagText: "OPTIMIZACIÓN EN TIEMPO REAL"
             slideNumber: "03 / 05"
-            titleText: "FalconD: Demonio de Rendimiento en Tiempo Real"
-            descText: "Un demonio de control soberano desarrollado para X64 LIOS que gestiona los recursos de tu hardware según la demanda de tus partidas."
-            feat1Title: "Priorización Inteligente"
-            feat1Desc: "Ajusta la prioridad de los procesos de juego automáticamente al iniciar títulos competitivos."
-            feat2Title: "Gestión Energética"
-            feat2Desc: "Perfiles de alto rendimiento para equipos de sobremesa y eficiencia balanceada para portátiles."
-            feat3Title: "Compatibilidad Handheld"
-            feat3Desc: "Soporte nativo y optimizaciones dedicadas para consolas portátiles y controles integrados."
+            titleText: "FalconD: Inteligencia y Rendimiento en Segundo Plano"
+            descText: "Un demonio de control desarrollado para X64 LIOS que optimiza en vivo el procesador, la GPU, la red y el disco, adaptándose automáticamente si estás en una torre de sobremesa, laptop o consola portátil."
+            feat1Title: "Priorización Extrema de Juegos"
+            feat1Desc: "Eleva la prioridad del juego en ejecución y silencia tareas en segundo plano para evitar tirones."
+            feat2Title: "Ajuste Térmico & Frecuencias"
+            feat2Desc: "Gestión dinámica de perfiles de energía, curvas de TDP y optimización de latencia de red (TCP BBR)."
+            feat3Title: "Detección Automática de Handhelds"
+            feat3Desc: "Soporte directo de controles, gatillos y consumo para Steam Deck, ROG Ally, Legion Go y más."
         }
     }
 
-    // SLIDE 4 (Modularidad y Libertad de Elección de Escritorios)
+    // SLIDE 4
     Slide {
         X64SlideContent {
-            tagText: "MODULARIDAD • LIBERTAD DE ELECCIÓN"
+            tagText: "ENTORNOS GAMER & WAYLAND"
             slideNumber: "04 / 05"
-            titleText: "Tu Entorno Gráfico, Tus Propias Reglas"
-            descText: "X64 LIOS no impone un único flujo de trabajo. Selecciona y disfruta del entorno que mejor potencie tu productividad y estilo personal."
-            feat1Title: "Suites Modernas"
-            feat1Desc: "KDE Plasma 6 y GNOME con aceleración gráfica completa y soporte nativo Wayland."
-            feat2Title: "Tiling Compositors"
-            feat2Desc: "Hyprland y Niri para navegación fluida por teclado, animaciones suaves y estética hacker."
-            feat3Title: "Ligereza & Clásicos"
-            feat3Desc: "COSMIC (Rust), Cinnamon y Xfce4 para mínima huella de memoria y máxima agilidad."
+            titleText: "Estaciones de Batalla de Ultra-Baja Latencia"
+            descText: "Disfruta de Wayland sin los típicos tirones. Integramos sincronización explícita y optimizaciones de renderizado para que el movimiento y mosaico (tiling) de ventanas sea ultrasuave incluso a 240Hz+."
+            feat1Title: "Tiling Fluido sin Stuttering"
+            feat1Desc: "Compositor optimizado contra micro-tirones al redimensionar, apilar o mover ventanas en pantalla."
+            feat2Title: "Direct Scanout & VRR"
+            feat2Desc: "Soporte nativo para G-Sync y FreeSync con bypass del compositor para latencia de nivel eSports."
+            feat3Title: "Libertad Total de Entornos"
+            feat3Desc: "Elige entre compositores dinámicos (Hyprland, Niri) o escritorios completos (KDE Plasma 6, GNOME)."
         }
     }
 
     // SLIDE 5
     Slide {
         X64SlideContent {
-            tagText: "ESTADO DE LA INSTALACIÓN"
+            tagText: "POST-INSTALACIÓN & X64-HELLO"
             slideNumber: "05 / 05"
-            titleText: "Tu Sistema se está Configurando en Disco"
-            descText: "El instalador está desplegando los paquetes del sistema y configurando el gestor de arranque en tu unidad seleccionada."
-            feat1Title: "Despliegue Seguro"
-            feat1Desc: "Instalación de paquetes con firmas verificadas y soporte para el esquema de partición deseado."
-            feat2Title: "Drivers y Red"
-            feat2Desc: "Configuración automatizada de hardware gráfico, adaptadores de red y subsistema de audio PipeWire."
-            feat3Title: "Próximo Paso"
-            feat3Desc: "Al concluir la barra de progreso, retira el medio de instalación USB y reinicia para entrar en X64 LIOS."
+            titleText: "X64-Hello: Tu Centro de Mando Profesional"
+            descText: "La instalación está finalizando la configuración en disco. Al reiniciar, la aplicación X64-Hello te recibirá con todas las herramientas de gestión pro y despliegue gamer a un solo clic."
+            feat1Title: "Selector de Kernels y Drivers GPU"
+            feat1Desc: "Alterna entre kernels de alto rendimiento y configura drivers NVIDIA/AMD en segundos."
+            feat2Title: "Gaming Toolkit Pro"
+            feat2Desc: "Despliega al instante Proton-GE, Wine, MangoHud, GameMode, Steam, Heroic, Lutris y emuladores."
+            feat3Title: "Seguridad y Snapshots Btrfs"
+            feat3Desc: "Crea copias de seguridad instantáneas del sistema antes de actualizar para total tranquilidad."
         }
     }
 
