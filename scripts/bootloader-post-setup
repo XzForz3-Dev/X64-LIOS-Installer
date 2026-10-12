@@ -30,4 +30,13 @@ elif pacman -Qq systemd-boot-manager 2>/dev/null && bootctl is-installed 2>/dev/
     echo "Enable systemd boot manager for automatic boot entry generation"
     rm -rf /boot/loader/entries/*
     sdboot-manage gen
+elif pacman -Qq grub 2>/dev/null; then
+    echo "Finalizing X64 LIOS GRUB configuration..."
+    if [ -d /usr/share/grub/themes/x64 ] && [ ! -d /boot/grub/themes/x64 ]; then
+        mkdir -p /boot/grub/themes
+        cp -rn /usr/share/grub/themes/x64 /boot/grub/themes/
+    fi
+    if [ -f /boot/grub/grub.cfg ]; then
+        grub-mkconfig -o /boot/grub/grub.cfg || true
+    fi
 fi
