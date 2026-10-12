@@ -32,6 +32,20 @@ elif pacman -Qq systemd-boot-manager 2>/dev/null && bootctl is-installed 2>/dev/
     sdboot-manage gen
 elif pacman -Qq grub 2>/dev/null; then
     echo "Finalizing X64 LIOS GRUB configuration..."
+    if [ -f /boot/vmlinuz-linux-cachyos-deckify ]; then
+        target_kernel="/boot/vmlinuz-linux-cachyos-deckify"
+    else
+        target_kernel="/boot/vmlinuz-linux-cachyos"
+    fi
+
+    if [ -f /etc/default/grub ]; then
+        if grep -q "^GRUB_TOP_LEVEL=" /etc/default/grub; then
+            sed -i "s|^GRUB_TOP_LEVEL=.*|GRUB_TOP_LEVEL=\"${target_kernel}\"|" /etc/default/grub
+        else
+            echo "GRUB_TOP_LEVEL=\"${target_kernel}\"" >> /etc/default/grub
+        fi
+    fi
+
     if [ -d /usr/share/grub/themes/x64 ] && [ ! -d /boot/grub/themes/x64 ]; then
         mkdir -p /boot/grub/themes
         cp -rn /usr/share/grub/themes/x64 /boot/grub/themes/
