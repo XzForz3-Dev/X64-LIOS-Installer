@@ -23,7 +23,6 @@
     - cachyos-settings
     - zram-generator
     - x64-welcome
-    - x64-theme-live
     - kitty
     - fish
 
@@ -241,6 +240,7 @@
     - sddm-kcm
     - skanpage
     - spectacle
+    - x64-kde-settings
 
 - name: "GNOME-Desktop"
   description: "GNOME - Clean, focused, and elegant desktop experience with modern gesture workflow."

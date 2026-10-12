@@ -147,7 +147,7 @@ def run():
     is_root_on_bcachefs = (curr_filesystem == "bcachefs\n")
 
     if bootloader == "grub":
-        base_packages += ["grub", "grub-hook", "cachyos-grub-theme", "os-prober"]
+        base_packages += ["grub", "grub-hook", "x64-grub-theme", "os-prober"]
     elif bootloader == "limine":
         base_packages += ["limine", "limine-entry-tool"]
     elif bootloader == "refind" or bootloader == "refind-ai":
