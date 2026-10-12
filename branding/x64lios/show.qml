@@ -19,6 +19,14 @@ Presentation
         onTriggered: nextSlide()
     }
 
+    // Fondo maestro oscuro para cubrir el 100% del viewport de QQuickWidget
+    Rectangle {
+        id: presentationBg
+        anchors.fill: parent
+        color: "#0b0b0d"
+        z: -99
+    }
+
     // Componente reutilizable para el contenido de cada Slide
     component X64SlideContent: Rectangle {
         id: card
@@ -226,6 +234,9 @@ Presentation
 
     // SLIDE 1
     Slide {
+        x: 0; y: 0
+        width: parent.width; height: parent.height
+
         X64SlideContent {
             tagText: "X64 LIOS • ARQUITECTURA HÍBRIDA"
             slideNumber: "01 / 05"
@@ -242,6 +253,9 @@ Presentation
 
     // SLIDE 2
     Slide {
+        x: 0; y: 0
+        width: parent.width; height: parent.height
+
         X64SlideContent {
             tagText: "NÚCLEO & REPOSITORIOS X64"
             slideNumber: "02 / 05"
@@ -258,6 +272,9 @@ Presentation
 
     // SLIDE 3
     Slide {
+        x: 0; y: 0
+        width: parent.width; height: parent.height
+
         X64SlideContent {
             tagText: "OPTIMIZACIÓN EN TIEMPO REAL"
             slideNumber: "03 / 05"
@@ -274,6 +291,9 @@ Presentation
 
     // SLIDE 4
     Slide {
+        x: 0; y: 0
+        width: parent.width; height: parent.height
+
         X64SlideContent {
             tagText: "ENTORNOS GAMER & WAYLAND"
             slideNumber: "04 / 05"
@@ -290,6 +310,9 @@ Presentation
 
     // SLIDE 5
     Slide {
+        x: 0; y: 0
+        width: parent.width; height: parent.height
+
         X64SlideContent {
             tagText: "POST-INSTALACIÓN & X64-HELLO"
             slideNumber: "05 / 05"

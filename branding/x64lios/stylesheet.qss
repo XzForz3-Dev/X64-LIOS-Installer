@@ -140,3 +140,10 @@ QCheckBox, QRadioButton {
     color: #e0e0e0;
     spacing: 8px;
 }
+
+/* QQuickWidget Slideshow Container */
+QQuickWidget, QQuickView, #executionViewStep, #viewManager, QStackedWidget {
+    background-color: #0b0b0d;
+    border: none;
+}
+
