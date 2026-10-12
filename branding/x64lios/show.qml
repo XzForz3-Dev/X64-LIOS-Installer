@@ -278,13 +278,13 @@ Presentation
             tagText: "ENTORNOS GAMER & WAYLAND"
             slideNumber: "04 / 05"
             titleText: "Estaciones de Batalla de Ultra-Baja Latencia"
-            descText: "Disfruta de Wayland sin los típicos tirones. Integramos sincronización explícita y optimizaciones de renderizado para que el movimiento y mosaico (tiling) de ventanas sea ultrasuave incluso a 240Hz+."
-            feat1Title: "Tiling Fluido sin Stuttering"
-            feat1Desc: "Compositor optimizado contra micro-tirones al redimensionar, apilar o mover ventanas en pantalla."
-            feat2Title: "Direct Scanout & VRR"
-            feat2Desc: "Soporte nativo para G-Sync y FreeSync con bypass del compositor para latencia de nivel eSports."
+            descText: "Eliminamos el mayor dolor de cabeza de Wayland: los micro-tirones en juegos al ejecutarse en ventanas o modo mosaico (tiling). Disfruta de un frame pacing perfecto tanto a pantalla completa como en ventanas."
+            feat1Title: "Gaming en Tiling sin Micro-Tirones"
+            feat1Desc: "Sincronización explícita optimizada para que tus juegos corran 100% fluidos dentro de ventanas de mosaico sin pérdidas de FPS ni saltos de fotogramas."
+            feat2Title: "Direct Scanout & VRR en Ventana"
+            feat2Desc: "Desvío del compositor con soporte para G-Sync y FreeSync, permitiendo jugar en ventana con la latencia y suavidad de pantalla completa exclusiva."
             feat3Title: "Libertad Total de Entornos"
-            feat3Desc: "Elige entre compositores dinámicos (Hyprland, Niri) o escritorios completos (KDE Plasma 6, GNOME)."
+            feat3Desc: "Máximo rendimiento gaming configurado tanto en compositores tiling (Hyprland, Niri) como en escritorios completos (KDE Plasma 6, GNOME)."
         }
     }
 
