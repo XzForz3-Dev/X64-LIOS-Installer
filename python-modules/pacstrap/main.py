@@ -149,11 +149,11 @@ def run():
     if bootloader == "grub":
         base_packages += ["grub", "grub-hook", "x64-grub-theme", "os-prober"]
     elif bootloader == "limine":
-        base_packages += ["limine", "limine-entry-tool"]
+        base_packages += ["limine", "limine-entry-tool", "x64-limine-theme"]
     elif bootloader == "refind" or bootloader == "refind-ai":
-        base_packages += ["refind"]
+        base_packages += ["refind", "x64-refind-theme"]
     elif bootloader == "systemd-boot":
-        base_packages += ["systemd-boot-manager"]
+        base_packages += ["systemd-boot-manager", "x64-systemd-boot-theme"]
 
     # Detect CPU vendor and add the correct microcode package
     try:

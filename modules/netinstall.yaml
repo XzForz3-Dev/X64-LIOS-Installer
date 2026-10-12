@@ -278,6 +278,7 @@
     - nautilus
     - sushi
     - xdg-user-dirs-gtk
+    - x64-gnome-settings
 
 - name: "Cosmic"
   description: "COSMIC - Next-generation modular desktop developed in Rust by System76."
@@ -298,6 +299,7 @@
     - cosmic-workspaces
     - xdg-desktop-portal-cosmic
     - gnome-keyring
+    - x64-cosmic-settings
 
 - name: "Niri"
   description: "Niri - Modern scrollable-tiling Wayland compositor with horizontal ribbon workflow."
@@ -312,6 +314,7 @@
     - fuzzel
     - waybar
     - xdg-desktop-portal-gnome
+    - x64-niri-settings
 
 - name: "Cinnamon"
   description: "Cinnamon - Traditional, intuitive, and robust desktop experience."
@@ -326,6 +329,7 @@
     - lightdm-slick-greeter
     - gnome-keyring
     - gnome-terminal
+    - x64-cinnamon-settings
 
 - name: "Xfce4"
   description: "Xfce 4 - Lightweight and ultra-fast desktop environment for maximum resource efficiency."
@@ -341,6 +345,7 @@
     - file-roller
     - ristretto
     - network-manager-applet
+    - x64-xfce4-settings
 
 - name: "Hyprland"
   description: "Hyprland - Dynamic tiling Wayland compositor with hacker aesthetic and fluid animations."
@@ -356,6 +361,7 @@
     - rofi-wayland
     - dunst
     - xdg-desktop-portal-hyprland
+    - x64-hyprland-settings
 
 - name: "Web Browsers"
   description: "Popular and optimized web browsers"
