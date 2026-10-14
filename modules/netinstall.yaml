@@ -103,6 +103,7 @@
         - gst-plugins-ugly
         - libdvdcss
         - poppler-glib
+        - vlc-plugins-all
         - xdg-user-dirs
         - xdg-utils
 
@@ -126,18 +127,25 @@
       description: "Complete font collection, emojis, CJK support, and Nerd Fonts"
       selected: true
       packages:
+        - awesome-terminal-fonts
         - cantarell-fonts
         - noto-fonts
         - noto-fonts-cjk
         - noto-fonts-emoji
+        - ttf-cascadia-code
         - ttf-dejavu
+        - ttf-font-awesome
+        - ttf-jetbrains-mono
         - ttf-liberation
         - ttf-meslo-nerd
+        - ttf-nerd-fonts-symbols
+        - ttf-opensans
 
     - name: "Audio"
       description: "Low-latency PipeWire audio stack, ALSA utilities, and WirePlumber"
       selected: true
       packages:
+        - alsa-firmware
         - alsa-plugins
         - alsa-utils
         - pavucontrol
@@ -154,6 +162,7 @@
         - dmraid
         - hdparm
         - hwdetect
+        - hwinfo
         - linux-firmware
         - lsscsi
         - mesa-utils
@@ -172,19 +181,27 @@
       description: "Essential command-line utilities, text editors, and developer tools"
       selected: true
       packages:
+        - bash-completion
         - btop
+        - duf
         - fastfetch
-        - starship
         - git
+        - libgsf
+        - libopenraw
+        - meld
         - micro
         - nano
         - nano-syntax-highlighting
         - openssh
+        - plocate
         - pv
         - python-defusedxml
         - python-packaging
+        - rebuild-detector
         - ripgrep
         - rsync
+        - shelly
+        - starship
         - vim
         - wget
 
@@ -206,7 +223,6 @@
     - ark
     - bluedevil
     - breeze-gtk
-    - cachy-update
     - dolphin
     - ffmpegthumbs
     - filelight
@@ -222,18 +238,22 @@
     - kdialog
     - kinfocenter
     - kio-admin
+    - kio-fuse
     - konsole
     - kscreen
     - kwallet-pam
     - kwalletmanager
+    - okular
     - partitionmanager
     - phonon-qt6-vlc
     - plasma-browser-integration
     - plasma-desktop
     - plasma-disks
+    - plasma-firewall
     - plasma-nm
     - plasma-pa
     - plasma-systemmonitor
+    - plasma-thunderbolt
     - plasma-vault
     - plasma-workspace-wallpapers
     - powerdevil
@@ -242,6 +262,8 @@
     - sddm-kcm
     - skanpage
     - spectacle
+    - tesseract-data-eng
+    - xsettingsd
     - x64-kde-settings
 
 - name: "GNOME-Desktop"
@@ -250,10 +272,13 @@
   selected: false
   critical: true
   packages:
+    - baobab
+    - decibels
     - file-roller
     - gdm
     - gnome-backgrounds
     - gnome-bluetooth-3.0
+    - gnome-calculator
     - gnome-color-manager
     - gnome-control-center
     - gnome-disk-utility
@@ -269,6 +294,7 @@
     - gnome-user-share
     - gvfs
     - gvfs-afc
+    - gvfs-dnssd
     - gvfs-goa
     - gvfs-google
     - gvfs-gphoto2
@@ -278,6 +304,11 @@
     - loupe
     - mutter
     - nautilus
+    - papers
+    - resources
+    - showtime
+    - simple-scan
+    - snapshot
     - sushi
     - xdg-user-dirs-gtk
     - x64-gnome-settings
@@ -295,12 +326,26 @@
     - cosmic-app-library
     - cosmic-applets
     - cosmic-bg
+    - cosmic-workspaces
+    - cosmic-launcher
+    - cosmic-notifications
+    - cosmic-osd
+    - cosmic-settings
+    - cosmic-settings-daemon
+    - cosmic-randr
     - cosmic-files
     - cosmic-terminal
-    - cosmic-settings
-    - cosmic-workspaces
-    - xdg-desktop-portal-cosmic
+    - cosmic-text-editor
+    - cosmic-viewer
+    - cosmic-player
+    - cosmic-monitor
+    - cosmic-screenshot
+    - cosmic-icon-theme
+    - cosmic-wallpapers
     - gnome-keyring
+    - xdg-desktop-portal-cosmic
+    - xdg-desktop-portal-gtk
+    - xorg-xwayland
     - x64-cosmic-settings
 
 - name: "Niri"
@@ -410,7 +455,7 @@
         - vivaldi
 
 - name: "Printing-Support"
-  description: "Complete printing support and PDF virtual printer (CUPS)"
+  description: "Complete printing support, PDF virtual printer, and printer drivers (CUPS)"
   hidden: false
   selected: false
   critical: false
@@ -418,6 +463,11 @@
     - cups
     - cups-filters
     - cups-pdf
+    - foomatic-db
+    - foomatic-db-engine
+    - ghostscript
+    - gsfonts
+    - gutenprint
     - system-config-printer
 
 - name: "Support for HP Printer/Scanner"
@@ -427,6 +477,8 @@
   critical: false
   packages:
     - hplip
+    - python-pyqt5
+    - python-reportlab
 
 - name: "Accessibility Tools"
   description: "Screen reader and accessibility utilities for impaired vision"
