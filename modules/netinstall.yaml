@@ -22,7 +22,6 @@
     - cachyos-ananicy-rules
     - cachyos-settings
     - zram-generator
-    - x64-welcome
     - x64-terminal-settings
     - kitty
     - fish
