@@ -385,22 +385,27 @@
         - firefox-i18n-en-us
     - name: "Brave Browser"
       description: "Privacy-focused browser with built-in ad and tracker blocking"
+      selected: false
       packages:
         - brave-bin
     - name: "Zen Browser"
       description: "Modern Firefox-based browser with vertical tabs and sleek styling"
+      selected: false
       packages:
         - zen-browser-bin
     - name: "LibreWolf"
       description: "Hardened browser focused on privacy and telemetry removal"
+      selected: false
       packages:
         - librewolf-bin
     - name: "Google Chrome"
       description: "Google's official web browser"
+      selected: false
       packages:
         - google-chrome
     - name: "Vivaldi"
       description: "Feature-packed browser with extreme tab customization"
+      selected: false
       packages:
         - vivaldi
 
