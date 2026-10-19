@@ -24,6 +24,7 @@
     - zram-generator
     - x64-terminal-settings
     - x64-hello
+    - x64-update
     - kitty
     - fish
 
