@@ -5,3 +5,36 @@ for shell in 'fish' 'zsh'; do
         chsh -s "/bin/${shell}" "$user" && break
     fi
 done
+
+# Enable UFW firewall out-of-the-box (DEFAULT_INPUT_POLICY="DROP", DEFAULT_OUTPUT_POLICY="ACCEPT")
+if [ -f /etc/ufw/ufw.conf ]; then
+    sed -i 's/^ENABLED=no/ENABLED=yes/' /etc/ufw/ufw.conf
+fi
+
+# Ensure Pacman Color and ILoveCandy aesthetics are enabled alongside ParallelDownloads
+if [ -f /etc/pacman.conf ]; then
+    sed -i 's/^#Color$/Color/' /etc/pacman.conf
+    if ! grep -q '^ILoveCandy' /etc/pacman.conf; then
+        sed -i '/^Color$/a ILoveCandy' /etc/pacman.conf
+    fi
+fi
+
+# Ensure X64 LIOS Low-Latency Kernel & Network Profile (TCP BBR + fq + SteamOS vm.max_map_count)
+mkdir -p /etc/sysctl.d
+cat << 'EOF' > /etc/sysctl.d/99-x64-lios-performance.conf
+# ==============================================================================
+# X64 LIOS Linux - Kernel & Network Low-Latency Tuning Profile
+# ==============================================================================
+
+# 1. Anti-Bufferbloat & Low-Latency Network Stack (BBR + Fair Queueing)
+net.core.default_qdisc = fq
+net.ipv4.tcp_congestion_control = bbr
+net.ipv4.tcp_fastopen = 3
+net.ipv4.tcp_mtu_probing = 1
+net.core.netdev_max_backlog = 16384
+net.core.somaxconn = 8192
+
+# 2. Heavy Gaming & Vulkan/Proton Memory Mapping (SteamOS Standard)
+vm.max_map_count = 2147483642
+EOF
+
