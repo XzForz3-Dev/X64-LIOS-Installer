@@ -18,6 +18,9 @@
     - chwd
     - falcond
     - falcond-profiles
+    - scx-scheds
+    - scx-tools
+    - steam-devices
     - ananicy-cpp
     - cachyos-ananicy-rules
     - cachyos-settings
