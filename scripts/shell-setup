@@ -11,17 +11,24 @@ if [ -f /etc/ufw/ufw.conf ]; then
     sed -i 's/^ENABLED=no/ENABLED=yes/' /etc/ufw/ufw.conf
 fi
 
-# Ensure Pacman Color and ILoveCandy aesthetics are enabled alongside ParallelDownloads
+# Ensure Pacman Color, ILoveCandy, and [multilib] are enabled
 if [ -f /etc/pacman.conf ]; then
     sed -i 's/^#Color$/Color/' /etc/pacman.conf
     if ! grep -q '^ILoveCandy' /etc/pacman.conf; then
         sed -i '/^Color$/a ILoveCandy' /etc/pacman.conf
     fi
+    if ! grep -q '^\[multilib\]' /etc/pacman.conf; then
+        sed -i '/^#\[multilib\]/,/^#Include/ s/^#//' /etc/pacman.conf
+    fi
 fi
 
-# Ensure X64 LIOS Low-Latency Kernel & Network Profile (TCP BBR + fq + SteamOS vm.max_map_count)
-mkdir -p /etc/sysctl.d
-cat << 'EOF' > /etc/sysctl.d/99-x64-lios-performance.conf
+# Ensure FalconD user profiles directory exists for inotify watcher
+mkdir -p /usr/share/falcond/profiles/user
+
+# Ensure X64 LIOS Low-Latency Kernel & Network Profile (if not already installed by x64-terminal-settings)
+if [ ! -f /etc/sysctl.d/99-x64-lios-performance.conf ]; then
+    mkdir -p /etc/sysctl.d
+    cat << 'EOF' > /etc/sysctl.d/99-x64-lios-performance.conf
 # ==============================================================================
 # X64 LIOS Linux - Kernel & Network Low-Latency Tuning Profile
 # ==============================================================================
@@ -37,4 +44,5 @@ net.core.somaxconn = 8192
 # 2. Heavy Gaming & Vulkan/Proton Memory Mapping (SteamOS Standard)
 vm.max_map_count = 2147483642
 EOF
+fi
 
