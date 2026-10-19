@@ -46,3 +46,17 @@ vm.max_map_count = 2147483642
 EOF
 fi
 
+# Ensure Polkit rule for 1-click scx_loader scheduler switching in X64 Hello
+if [ ! -f /etc/polkit-1/rules.d/50-x64-scx-loader.rules ]; then
+    mkdir -p /etc/polkit-1/rules.d
+    cat << 'EOF' > /etc/polkit-1/rules.d/50-x64-scx-loader.rules
+polkit.addRule(function(action, subject) {
+    if (action.id == "org.scx.loader.manage-schedulers" && subject.isInGroup("wheel")) {
+        return polkit.Result.YES;
+    }
+});
+EOF
+    chmod 644 /etc/polkit-1/rules.d/50-x64-scx-loader.rules
+fi
+
+
