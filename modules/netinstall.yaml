@@ -25,6 +25,7 @@
     - x64-terminal-settings
     - x64-hello
     - x64-update
+    - x64-plymouth-theme
     - kitty
     - fish
 
