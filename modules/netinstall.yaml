@@ -228,9 +228,11 @@
     - ark
     - bluedevil
     - breeze-gtk
+    - discover
     - dolphin
     - ffmpegthumbs
     - filelight
+    - flatpak
     - fwupd
     - gwenview
     - haruna
