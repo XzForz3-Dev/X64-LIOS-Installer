@@ -269,6 +269,7 @@
     - print-manager
     - sddm
     - sddm-kcm
+    - x64-sddm-theme
     - skanpage
     - spectacle
     - tesseract-data-eng
@@ -365,6 +366,7 @@
   packages:
     - niri
     - sddm
+    - x64-sddm-theme
     - kitty
     - dolphin
     - fuzzel
@@ -411,6 +413,7 @@
   packages:
     - hyprland
     - sddm
+    - x64-sddm-theme
     - dolphin
     - kitty
     - waybar
