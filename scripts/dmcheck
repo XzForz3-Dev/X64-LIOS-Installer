@@ -32,6 +32,9 @@ if is_installed "sddm"; then
     cat << 'EOF' > /etc/sddm.conf.d/10-theme.conf
 [Theme]
 Current=x64-lios
+
+[General]
+GreeterEnvironment=QML_XHR_ALLOW_FILE_READ=1
 EOF
 elif is_installed "gdm"; then
     echo ":: [X64 LIOS] Enabling GDM display manager..."
