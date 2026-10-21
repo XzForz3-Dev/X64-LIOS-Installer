@@ -59,4 +59,11 @@ EOF
     chmod 644 /etc/polkit-1/rules.d/50-x64-scx-loader.rules
 fi
 
+# Ensure systemd-oomd is disabled (neutralize cachyos-settings scriptlet to preserve ZRAM)
+systemctl disable systemd-oomd.service systemd-oomd.socket 2>/dev/null || true
+
+# Ensure fwupd-refresh.timer is disabled on fresh install (firmware updates remain on-demand)
+systemctl disable fwupd-refresh.timer 2>/dev/null || true
+
+
 
