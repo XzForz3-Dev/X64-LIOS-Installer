@@ -30,4 +30,57 @@ elif pacman -Qq systemd-boot-manager 2>/dev/null && bootctl is-installed 2>/dev/
     echo "Enable systemd boot manager for automatic boot entry generation"
     rm -rf /boot/loader/entries/*
     sdboot-manage gen
+elif pacman -Qq grub 2>/dev/null; then
+    echo "Finalizing X64 LIOS GRUB configuration..."
+    if [ -f /boot/vmlinuz-linux-cachyos-deckify ]; then
+        target_kernel="/boot/vmlinuz-linux-cachyos-deckify"
+    else
+        target_kernel="/boot/vmlinuz-linux-cachyos"
+    fi
+
+    if [ -f /etc/default/grub ]; then
+        if grep -q "^GRUB_TOP_LEVEL=" /etc/default/grub; then
+            sed -i "s|^GRUB_TOP_LEVEL=.*|GRUB_TOP_LEVEL=\"${target_kernel}\"|" /etc/default/grub
+        else
+            echo "GRUB_TOP_LEVEL=\"${target_kernel}\"" >> /etc/default/grub
+        fi
+    fi
+
+    if [ -d /usr/share/grub/themes/x64 ] && [ ! -d /boot/grub/themes/x64 ]; then
+        mkdir -p /boot/grub/themes
+        cp -rn /usr/share/grub/themes/x64 /boot/grub/themes/
+    fi
+
+    # Ensure Btrfs snapshots in GRUB title strictly "X64 LIOS Linux snapshots"
+    if [ -f /etc/default/grub-btrfs/config ]; then
+        sed -i 's/^#*GRUB_BTRFS_SUBMENUNAME=.*/GRUB_BTRFS_SUBMENUNAME="X64 LIOS Linux snapshots"/' /etc/default/grub-btrfs/config
+    fi
+
+    if [ -f /boot/grub/grub.cfg ]; then
+        grub-mkconfig -o /boot/grub/grub.cfg || true
+    fi
+fi
+
+# Configure Plymouth early hook, delay and retain-splash
+if pacman -Qq plymouth 2>/dev/null; then
+    echo "Configuring X64 LIOS Plymouth Boot Splash..."
+    mkdir -p /etc/plymouth
+    cat << 'EOF' > /etc/plymouth/plymouthd.conf
+[Daemon]
+Theme=x64-lios
+ShowDelay=0
+DeviceTimeout=8
+EOF
+    mkdir -p /etc/systemd/system/plymouth-quit.service.d
+    cat << 'EOF' > /etc/systemd/system/plymouth-quit.service.d/retain-splash.conf
+[Service]
+ExecStart=
+ExecStart=-/usr/bin/plymouth quit --retain-splash
+EOF
+
+    if [ -f /etc/mkinitcpio.conf ]; then
+        # Ensure plymouth hook is placed early right after udev (before autodetect)
+        sed -i -E 's/HOOKS=\((.*)udev (.*)plymouth (.*)\)/HOOKS=(\1udev plymouth \2\3)/' /etc/mkinitcpio.conf
+        mkinitcpio -P || true
+    fi
 fi
