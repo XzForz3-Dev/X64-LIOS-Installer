@@ -61,7 +61,7 @@ elif pacman -Qq grub 2>/dev/null; then
     fi
 fi
 
-# Configure Plymouth early hook, delay and retain-splash
+# Configure Plymouth Boot Splash safely (never lock DRM or place hook before KMS)
 if pacman -Qq plymouth 2>/dev/null; then
     echo "Configuring X64 LIOS Plymouth Boot Splash..."
     mkdir -p /etc/plymouth
@@ -71,16 +71,17 @@ Theme=x64-lios
 ShowDelay=0
 DeviceTimeout=8
 EOF
-    mkdir -p /etc/systemd/system/plymouth-quit.service.d
-    cat << 'EOF' > /etc/systemd/system/plymouth-quit.service.d/retain-splash.conf
-[Service]
-ExecStart=
-ExecStart=-/usr/bin/plymouth quit --retain-splash
-EOF
+
+    # Ensure clean Plymouth termination without locking DRM framebuffer
+    rm -rf /etc/systemd/system/plymouth-quit.service.d
 
     if [ -f /etc/mkinitcpio.conf ]; then
-        # Ensure plymouth hook is placed early right after udev (before autodetect)
-        sed -i -E 's/HOOKS=\((.*)udev (.*)plymouth (.*)\)/HOOKS=(\1udev plymouth \2\3)/' /etc/mkinitcpio.conf
+        # Ensure plymouth hook is placed safely AFTER kms and autodetect
+        # (never before kms, otherwise early boot hangs waiting for GPU drivers)
+        if grep -q "plymouth" /etc/mkinitcpio.conf; then
+            sed -i -E 's/plymouth //g; s/ plymouth//g' /etc/mkinitcpio.conf
+            sed -i -E 's/filesystems/plymouth filesystems/' /etc/mkinitcpio.conf
+        fi
         mkinitcpio -P || true
     fi
 fi
