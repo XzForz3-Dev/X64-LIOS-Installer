@@ -60,10 +60,14 @@ EOF
 fi
 
 # Ensure systemd-oomd is disabled (neutralize cachyos-settings scriptlet to preserve ZRAM)
-systemctl disable systemd-oomd.service systemd-oomd.socket 2>/dev/null || true
+rm -f /etc/systemd/system/multi-user.target.wants/systemd-oomd.service 2>/dev/null || true
+rm -f /etc/systemd/system/sockets.target.wants/systemd-oomd.socket 2>/dev/null || true
+rm -f /etc/systemd/system/dbus-org.freedesktop.oom1.service 2>/dev/null || true
+SYSTEMD_OFFLINE=1 systemctl --root=/ disable systemd-oomd.service systemd-oomd.socket 2>/dev/null || true
 
 # Ensure fwupd-refresh.timer is disabled on fresh install (firmware updates remain on-demand)
-systemctl disable fwupd-refresh.timer 2>/dev/null || true
+rm -f /etc/systemd/system/timers.target.wants/fwupd-refresh.timer 2>/dev/null || true
+SYSTEMD_OFFLINE=1 systemctl --root=/ disable fwupd-refresh.timer 2>/dev/null || true
 
 
 

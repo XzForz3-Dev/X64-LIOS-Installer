@@ -5,3 +5,69 @@ for shell in 'fish' 'zsh'; do
         chsh -s "/bin/${shell}" "$user" && break
     fi
 done
+
+# Enable UFW firewall out-of-the-box (DEFAULT_INPUT_POLICY="DROP", DEFAULT_OUTPUT_POLICY="ACCEPT")
+if [ -f /etc/ufw/ufw.conf ]; then
+    sed -i 's/^ENABLED=no/ENABLED=yes/' /etc/ufw/ufw.conf
+fi
+
+# Ensure Pacman Color, ILoveCandy, and [multilib] are enabled
+if [ -f /etc/pacman.conf ]; then
+    sed -i 's/^#Color$/Color/' /etc/pacman.conf
+    if ! grep -q '^ILoveCandy' /etc/pacman.conf; then
+        sed -i '/^Color$/a ILoveCandy' /etc/pacman.conf
+    fi
+    if ! grep -q '^\[multilib\]' /etc/pacman.conf; then
+        sed -i '/^#\[multilib\]/,/^#Include/ s/^#//' /etc/pacman.conf
+    fi
+fi
+
+# Ensure FalconD user profiles directory exists for inotify watcher
+mkdir -p /usr/share/falcond/profiles/user
+
+# Ensure X64 LIOS Low-Latency Kernel & Network Profile (if not already installed by x64-terminal-settings)
+if [ ! -f /etc/sysctl.d/99-x64-lios-performance.conf ]; then
+    mkdir -p /etc/sysctl.d
+    cat << 'EOF' > /etc/sysctl.d/99-x64-lios-performance.conf
+# ==============================================================================
+# X64 LIOS Linux - Kernel & Network Low-Latency Tuning Profile
+# ==============================================================================
+
+# 1. Anti-Bufferbloat & Low-Latency Network Stack (BBR + Fair Queueing)
+net.core.default_qdisc = fq
+net.ipv4.tcp_congestion_control = bbr
+net.ipv4.tcp_fastopen = 3
+net.ipv4.tcp_mtu_probing = 1
+net.core.netdev_max_backlog = 16384
+net.core.somaxconn = 8192
+
+# 2. Heavy Gaming & Vulkan/Proton Memory Mapping (SteamOS Standard)
+vm.max_map_count = 2147483642
+EOF
+fi
+
+# Ensure Polkit rule for 1-click scx_loader scheduler switching in X64 Hello
+if [ ! -f /etc/polkit-1/rules.d/50-x64-scx-loader.rules ]; then
+    mkdir -p /etc/polkit-1/rules.d
+    cat << 'EOF' > /etc/polkit-1/rules.d/50-x64-scx-loader.rules
+polkit.addRule(function(action, subject) {
+    if (action.id == "org.scx.loader.manage-schedulers" && subject.isInGroup("wheel")) {
+        return polkit.Result.YES;
+    }
+});
+EOF
+    chmod 644 /etc/polkit-1/rules.d/50-x64-scx-loader.rules
+fi
+
+# Ensure systemd-oomd is disabled (neutralize cachyos-settings scriptlet to preserve ZRAM)
+rm -f /etc/systemd/system/multi-user.target.wants/systemd-oomd.service 2>/dev/null || true
+rm -f /etc/systemd/system/sockets.target.wants/systemd-oomd.socket 2>/dev/null || true
+rm -f /etc/systemd/system/dbus-org.freedesktop.oom1.service 2>/dev/null || true
+SYSTEMD_OFFLINE=1 systemctl --root=/ disable systemd-oomd.service systemd-oomd.socket 2>/dev/null || true
+
+# Ensure fwupd-refresh.timer is disabled on fresh install (firmware updates remain on-demand)
+rm -f /etc/systemd/system/timers.target.wants/fwupd-refresh.timer 2>/dev/null || true
+SYSTEMD_OFFLINE=1 systemctl --root=/ disable fwupd-refresh.timer 2>/dev/null || true
+
+
+

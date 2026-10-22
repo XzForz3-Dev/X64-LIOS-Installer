@@ -85,3 +85,10 @@ EOF
         mkinitcpio -P || true
     fi
 fi
+
+# Ensure systemd-oomd is completely eradicated from startup (protect ZRAM and gaming sessions)
+rm -f /etc/systemd/system/multi-user.target.wants/systemd-oomd.service 2>/dev/null || true
+rm -f /etc/systemd/system/sockets.target.wants/systemd-oomd.socket 2>/dev/null || true
+rm -f /etc/systemd/system/dbus-org.freedesktop.oom1.service 2>/dev/null || true
+rm -f /etc/systemd/system/timers.target.wants/fwupd-refresh.timer 2>/dev/null || true
+
