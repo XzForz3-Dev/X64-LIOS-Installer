@@ -238,16 +238,16 @@ Presentation
         width: parent.width; height: parent.height
 
         X64SlideContent {
-            tagText: "X64 LIOS • ARQUITECTURA HÍBRIDA"
+            tagText: "X64 LIOS • ARQUITECTURA DE ALTO RENDIMIENTO"
             slideNumber: "01 / 05"
-            titleText: "Máximo Rendimiento Bare-Metal y Gaming Competitivo"
-            descText: "Diseñado desde cero para exprimir el 100% de tu hardware. Un sistema operativo puro, sin capas innecesarias, telemetría oculta ni servicios que roben FPS en segundo plano."
-            feat1Title: "Rolling Release Híbrido"
-            feat1Desc: "La vanguardia de Arch con la estabilidad de Debian: kernel y drivers siempre al día para jugar, con la libertad de congelar paquetes críticos para que nada se rompa."
-            feat2Title: "Base Arch Linux Pura"
-            feat2Desc: "Control total de tu máquina y despliegue fresco de paquetes directamente desde la red."
-            feat3Title: "Zero Bloatware"
-            feat3Desc: "Solo los componentes esenciales para jugar y crear, garantizando latencias mínimas y arranque récord."
+            titleText: "Máximo Rendimiento Bare-Metal y Latencia Ultra-Baja"
+            descText: "Diseñado desde cero para exprimir el 100% de tu máquina. Base pura de Arch Linux sin bloatware ni telemetría oculta, con un consumo mínimo de apenas 600–800 MB de RAM en reposo."
+            feat1Title: "Rendimiento Top Gaming"
+            feat1Desc: "Kernel CachyOS optimizado con schedulers dinámicos scx y afinidad de procesos."
+            feat2Title: "Rolling Release de Vanguardia"
+            feat2Desc: "Lo último en optimizaciones de hardware, drivers y librerías siempre al día."
+            feat3Title: "Sistema Quirúrgico"
+            feat3Desc: "Cero servicios innecesarios en segundo plano para dedicar tu hardware 100% a jugar y crear."
         }
     }
 
@@ -257,16 +257,16 @@ Presentation
         width: parent.width; height: parent.height
 
         X64SlideContent {
-            tagText: "NÚCLEO & REPOSITORIOS X64"
+            tagText: "MUTACIÓN DE HARDWARE & COMPATIBILIDAD"
             slideNumber: "02 / 05"
-            titleText: "Detección Inteligente de CPU y Repositorio Oficial X64"
-            descText: "El instalador analiza tu procesador en tiempo real. Si detecta una CPU moderna activa repositorios de microarquitectura avanzada; si detecta hardware clásico, aplica el fallback seguro para máxima compatibilidad."
-            feat1Title: "Microarquitectura a Medida"
-            feat1Desc: "Detección de x86-64-v3 (AVX2) y v4 (AVX-512), con fallback automático a x86-64-v1 y v2 para procesadores legacy."
-            feat2Title: "Repositorio Oficial X64"
-            feat2Desc: "Servidores dedicados con paquetes propios, herramientas exclusivas y parches compilados por nuestro equipo."
-            feat3Title: "Kernel CachyOS & BORE"
-            feat3Desc: "Planificador interactivo de tareas y ZRAM (ZSTD) que garantizan frametimes planos en cualquier juego."
+            titleText: "Detección Inteligente de CPU y Paquetes a Medida"
+            descText: "Durante esta instalación, el sistema audita tu procesador: si es moderno activa paquetes de alto rendimiento (v3/v4); si es clásico, utiliza los paquetes oficiales estándar de Arch Linux para compatibilidad total sin fallos."
+            feat1Title: "Optimización por Microarquitectura"
+            feat1Desc: "Inyección de repositorios x86-64-v3 (AVX2) o v4 (AVX-512) para máxima velocidad en CPUs modernas."
+            feat2Title: "Compatibilidad Oficial de Arch"
+            feat2Desc: "En procesadores clásicos, el sistema recurre a los repositorios oficiales de Arch Linux garantizando estabilidad absoluta."
+            feat3Title: "Detección Gráfica chwd"
+            feat3Desc: "Reconocimiento e instalación automatizada de drivers para GPUs NVIDIA GeForce, AMD Radeon e Intel Iris."
         }
     }
 
@@ -278,14 +278,14 @@ Presentation
         X64SlideContent {
             tagText: "OPTIMIZACIÓN EN TIEMPO REAL"
             slideNumber: "03 / 05"
-            titleText: "FalconD: Inteligencia y Rendimiento en Segundo Plano"
-            descText: "Un demonio de control desarrollado para X64 LIOS que optimiza en vivo el procesador, la GPU, la red y el disco, adaptándose automáticamente si estás en una torre de sobremesa, laptop o consola portátil."
-            feat1Title: "Priorización Extrema de Juegos"
-            feat1Desc: "Eleva la prioridad del juego en ejecución y silencia tareas en segundo plano para evitar tirones."
-            feat2Title: "Ajuste Térmico & Frecuencias"
-            feat2Desc: "Gestión dinámica de perfiles de energía, curvas de TDP y optimización de latencia de red (TCP BBR)."
-            feat3Title: "Detección Automática de Handhelds"
-            feat3Desc: "Soporte directo de controles, gatillos y consumo para Steam Deck, ROG Ally, Legion Go y más."
+            titleText: "FalconD: Gestión Inteligente de Recursos en Vivo"
+            descText: "Integramos el demonio open-source FalconD con perfiles específicos optimizados para X64 LIOS, gestionando dinámicamente CPU, GPU, red y disco en segundo plano."
+            feat1Title: "Prioridad Gaming Extrema"
+            feat1Desc: "Ajusta la afinidad de núcleos y eleva la prioridad del juego activo para erradicar micro-tirones."
+            feat2Title: "Ajuste Térmico y Frecuencias"
+            feat2Desc: "Gestión dinámica de perfiles de energía, curvas de TDP y baja latencia de red con TCP BBR."
+            feat3Title: "Soporte Adaptativo para Dispositivos"
+            feat3Desc: "Perfiles automáticos para PC de sobremesa, laptops (ahorro de batería) y consolas Handheld (Steam Deck, ROG Ally, Legion Go)."
         }
     }
 
@@ -297,14 +297,14 @@ Presentation
         X64SlideContent {
             tagText: "ENTORNOS GAMER & WAYLAND"
             slideNumber: "04 / 05"
-            titleText: "Estaciones de Batalla de Ultra-Baja Latencia"
-            descText: "Eliminamos el mayor dolor de cabeza de Wayland: los micro-tirones en juegos al ejecutarse en ventanas o modo mosaico (tiling). Disfruta de un frame pacing perfecto tanto a pantalla completa como en ventanas."
-            feat1Title: "Gaming en Tiling sin Micro-Tirones"
-            feat1Desc: "Sincronización explícita optimizada para que tus juegos corran 100% fluidos dentro de ventanas de mosaico sin pérdidas de FPS ni saltos de fotogramas."
-            feat2Title: "Direct Scanout & VRR en Ventana"
-            feat2Desc: "Desvío del compositor con soporte para G-Sync y FreeSync, permitiendo jugar en ventana con la latencia y suavidad de pantalla completa exclusiva."
-            feat3Title: "Libertad Total de Entornos"
-            feat3Desc: "Máximo rendimiento gaming configurado tanto en compositores tiling (Hyprland, Niri) como en escritorios completos (KDE Plasma 6, GNOME)."
+            titleText: "Gaming Fluido en Ventana y Libertad Visual"
+            descText: "Erradicación del stuttering y micro-tirones en Wayland. Disfruta de sincronización explícita perfecta tanto a pantalla completa como en ventanas de mosaico (tiling)."
+            feat1Title: "Direct Scanout & VRR en Ventana"
+            feat1Desc: "Desvío del compositor con soporte para G-Sync y FreeSync, jugando en ventana con la fluidez de pantalla completa."
+            feat2Title: "8 Entornos Oficiales a Elegir"
+            feat2Desc: "Máximo rendimiento probado en KDE Plasma 6, GNOME, COSMIC, Niri, Hyprland, Cinnamon, Xfce y Server."
+            feat3Title: "ZRAM Latencia Cero"
+            feat3Desc: "Paginado en RAM comprimida ultra-rápida, evitando bloqueos por swap lento en disco."
         }
     }
 
@@ -314,16 +314,16 @@ Presentation
         width: parent.width; height: parent.height
 
         X64SlideContent {
-            tagText: "POST-INSTALACIÓN & X64-HELLO"
+            tagText: "CENTRO DE CONTROL POST-INSTALACIÓN"
             slideNumber: "05 / 05"
-            titleText: "X64-Hello: Tu Centro de Mando Profesional"
-            descText: "La instalación está finalizando la configuración en disco. Al reiniciar, la aplicación X64-Hello te recibirá con todas las herramientas de gestión pro y despliegue gamer a un solo clic."
-            feat1Title: "Selector de Kernels y Drivers GPU"
-            feat1Desc: "Alterna entre kernels de alto rendimiento y configura drivers NVIDIA/AMD en segundos."
-            feat2Title: "Gaming Toolkit Pro"
-            feat2Desc: "Despliega al instante Proton-GE, Wine, MangoHud, GameMode, Steam, Heroic, Lutris y emuladores."
-            feat3Title: "Seguridad y Snapshots Btrfs"
-            feat3Desc: "Crea copias de seguridad instantáneas del sistema antes de actualizar para total tranquilidad."
+            titleText: "X64-Hello: Tu Suite Integral de Gestión y Gaming"
+            descText: "La instalación está por concluir. Al primer reinicio, X64-Hello te dará la bienvenida como tu centro de control integral para configurar gaming, rendimiento, kernels y mantenimiento con un solo clic."
+            feat1Title: "Gaming Center Modular en 1 Clic"
+            feat1Desc: "Despliega bajo demanda Steam, Heroic, Lutris, Proton-GE, Wine, GameMode, MangoHud y emuladores (RetroArch, RPCS3, PCSX2, Dolphin)."
+            feat2Title: "Ajustes de CPU, Red y Mantenimiento"
+            feat2Desc: "Control de gobernadores de CPU, EPP, schedulers scx, optimización de servidores espejo (mirrors) y limpieza del sistema."
+            feat3Title: "Gestión de Kernels y Escudo Btrfs"
+            feat3Desc: "Alterna entre kernels de alto rendimiento y crea instantáneas automáticas con Snapper para restaurar el sistema desde el bootloader si algo falla."
         }
     }
 
