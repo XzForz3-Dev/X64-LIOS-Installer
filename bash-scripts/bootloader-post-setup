@@ -86,9 +86,13 @@ EOF
     fi
 fi
 
-# Ensure systemd-oomd is completely eradicated from startup (protect ZRAM and gaming sessions)
+# Ensure systemd-oomd is completely eradicated from startup and slice auto-activation is neutralized
+mkdir -p /etc/systemd/system/system.slice.d /etc/systemd/system/user-.slice.d
+ln -sf /dev/null /etc/systemd/system/system.slice.d/10-oomd-per-slice-defaults.conf
+ln -sf /dev/null /etc/systemd/system/user-.slice.d/10-oomd-per-slice-defaults.conf
 rm -f /etc/systemd/system/multi-user.target.wants/systemd-oomd.service 2>/dev/null || true
 rm -f /etc/systemd/system/sockets.target.wants/systemd-oomd.socket 2>/dev/null || true
 rm -f /etc/systemd/system/dbus-org.freedesktop.oom1.service 2>/dev/null || true
 rm -f /etc/systemd/system/timers.target.wants/fwupd-refresh.timer 2>/dev/null || true
+SYSTEMD_OFFLINE=1 systemctl --root=/ disable systemd-oomd.service systemd-oomd.socket 2>/dev/null || true
 

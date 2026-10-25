@@ -59,7 +59,10 @@ EOF
     chmod 644 /etc/polkit-1/rules.d/50-x64-scx-loader.rules
 fi
 
-# Ensure systemd-oomd is disabled (neutralize cachyos-settings scriptlet to preserve ZRAM)
+# Ensure systemd-oomd is disabled and its slice auto-activation is neutralized (protect ZRAM)
+mkdir -p /etc/systemd/system/system.slice.d /etc/systemd/system/user-.slice.d
+ln -sf /dev/null /etc/systemd/system/system.slice.d/10-oomd-per-slice-defaults.conf
+ln -sf /dev/null /etc/systemd/system/user-.slice.d/10-oomd-per-slice-defaults.conf
 rm -f /etc/systemd/system/multi-user.target.wants/systemd-oomd.service 2>/dev/null || true
 rm -f /etc/systemd/system/sockets.target.wants/systemd-oomd.socket 2>/dev/null || true
 rm -f /etc/systemd/system/dbus-org.freedesktop.oom1.service 2>/dev/null || true
