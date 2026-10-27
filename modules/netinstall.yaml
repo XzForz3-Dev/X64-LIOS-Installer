@@ -218,7 +218,6 @@
   selected: false
   critical: false
   packages:
-    - powerstation
     - sc-controller
 
 - name: "KDE-Desktop"
@@ -306,7 +305,6 @@
     - gvfs-afc
     - gvfs-dnssd
     - gvfs-goa
-    - gvfs-google
     - gvfs-gphoto2
     - gvfs-mtp
     - gvfs-nfs
@@ -454,7 +452,7 @@
       description: "Hardened browser focused on privacy and telemetry removal"
       selected: false
       packages:
-        - librewolf-bin
+        - librewolf
     - name: "Google Chrome"
       description: "Google's official web browser"
       selected: false
