@@ -837,29 +837,34 @@ def update_limine_config(efi_directory, installation_root_path, fw_type):
 
         config_file.write("\n")
 
-        # Copy splash logo
-        try:
-            splash = libcalamares.job.configuration["limineSplashLogo"]
-            install_efi_directory = installation_root_path + efi_directory
-            splash_path = installation_root_path + splash
-            if os.path.exists(splash_path):
-                shutil.copy2(splash_path, install_efi_directory)
+        # Copy splash logo and apply official X64 LIOS Limine theme
+        splash = libcalamares.job.configuration.get("limineSplashLogo", "/usr/share/limine/x64-limine-splash.png")
+        install_efi_directory = installation_root_path + efi_directory
+        splash_path = installation_root_path + splash
+        has_splash = False
+        if os.path.exists(splash_path):
+            shutil.copy2(splash_path, install_efi_directory)
+            has_splash = True
+        else:
+            libcalamares.utils.warning('Splash logo specified in limineSplashLogo not found!')
 
-                # TODO (ventureo): This should be properly packaged when
-                # limine starts supporting drop-in configuration files.
-                config_file.write("# X64 LIOS Limine theme\n")
-                config_file.write("term_palette: 1e1e2e;f38ba8;a6e3a1;f9e2af;89b4fa;f5c2e7;94e2d5;cdd6f4\n")
-                config_file.write("term_palette_bright: 585b70;f38ba8;a6e3a1;f9e2af;89b4fa;f5c2e7;94e2d5;cdd6f4\n")
-                config_file.write("term_background: ffffffff\n")
-                config_file.write("term_foreground: cdd6f4\n")
-                config_file.write("term_background_bright: ffffffff\n")
-                config_file.write("term_foreground_bright: cdd6f4\n")
-                config_file.write("interface_branding:\n")
-                config_file.write(f"wallpaper: boot():/{os.path.basename(splash_path)}\n\n")
-            else:
-                libcalamares.utils.warning('Splash logo specified in limineSplashLogo not found!')
-        except KeyError:
-            libcalamares.utils.warning('limineSplashLogo not set. Skipping wallpaper in limine.conf')
+        config_file.write("# X64 LIOS Limine Theme\n")
+        config_file.write("interface_branding: X64 LIOS  •  GAMING EDITION\n")
+        config_file.write("interface_branding_colour: ff3b3b\n")
+        config_file.write("interface_help_colour: ff3b3b\n")
+        config_file.write("interface_help_colour_bright: ff6b6b\n")
+        config_file.write("term_palette: 0d0d11;ff3b3b;4ade80;fbbf24;38bdf8;e879f9;a1a1aa;d4d4d8\n")
+        config_file.write("term_palette_bright: 27272a;ff5555;4ade80;fbbf24;38bdf8;e879f9;f4f4f6;ffffff\n")
+        config_file.write("term_background: 900a0a0e\n")
+        config_file.write("term_foreground: f4f4f6\n")
+        config_file.write("term_background_bright: ff3b3b\n")
+        config_file.write("term_foreground_bright: ffffff\n")
+        config_file.write("term_margin: 80\n")
+        config_file.write("term_margin_gradient: 4\n")
+        if has_splash:
+            config_file.write(f"wallpaper: boot():/{os.path.basename(splash_path)}\n")
+            config_file.write("wallpaper_style: stretched\n")
+        config_file.write("\n")
 
         machine_id = get_machine_id(installation_root_path)
         try:

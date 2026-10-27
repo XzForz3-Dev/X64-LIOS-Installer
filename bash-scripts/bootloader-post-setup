@@ -52,6 +52,12 @@ fi
 
 # 3. Bootloader-specific post-setup and initramfs synchronization
 if pacman -Qq limine 2>/dev/null; then
+    # Ensure chroot DNS is active if /etc/resolv.conf points to an inactive systemd-resolved stub
+    if [ -L /etc/resolv.conf ] && grep -q "127.0.0.53" /etc/resolv.conf 2>/dev/null; then
+        rm -f /etc/resolv.conf
+        printf "nameserver 1.1.1.1\nnameserver 8.8.8.8\n" > /etc/resolv.conf
+    fi
+
     limine_snapper_config="/etc/limine-snapper-sync.conf"
 
     if [ -e "$limine_snapper_config" ]; then
@@ -82,13 +88,33 @@ EOF
         fi
     fi
 
-    # Ensure /boot/efi/limine.conf has clean X64 LIOS Linux header with machine-id underneath
-    if [ -f /boot/efi/limine.conf ] && [ -f /etc/machine-id ]; then
+    if [ -f /usr/share/limine/x64-limine-splash.png ] && [ -d /boot/efi ]; then
+        cp -f /usr/share/limine/x64-limine-splash.png /boot/efi/x64-limine-splash.png
+    fi
+
+    # Ensure /boot/efi/limine.conf has official X64 LIOS theme and header with machine-id underneath
+    if [ -d /boot/efi ] && [ -f /etc/machine-id ]; then
         MID=$(tr -d '\n' < /etc/machine-id)
         cat << EOF > /boot/efi/limine.conf
 timeout: 5
 default_entry: 2
 remember_last_entry: yes
+
+# X64 LIOS Limine Theme
+interface_branding: X64 LIOS  •  GAMING EDITION
+interface_branding_colour: ff3b3b
+interface_help_colour: ff3b3b
+interface_help_colour_bright: ff6b6b
+term_palette: 0d0d11;ff3b3b;4ade80;fbbf24;38bdf8;e879f9;a1a1aa;d4d4d8
+term_palette_bright: 27272a;ff5555;4ade80;fbbf24;38bdf8;e879f9;f4f4f6;ffffff
+term_background: 900a0a0e
+term_foreground: f4f4f6
+term_background_bright: ff3b3b
+term_foreground_bright: ffffff
+term_margin: 80
+term_margin_gradient: 4
+wallpaper: boot():/x64-limine-splash.png
+wallpaper_style: stretched
 
 /+X64 LIOS Linux
 comment: machine-id=${MID}

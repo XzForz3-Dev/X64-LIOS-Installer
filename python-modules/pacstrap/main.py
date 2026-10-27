@@ -177,7 +177,7 @@ def run():
     elif is_root_on_btrfs:
         libcalamares.utils.debug("Root on BTRFS")
         if bootloader == "limine":
-            base_packages += ["snapper", "btrfs-assistant", "limine-snapper-sync" ]
+            base_packages += ["snapper", "btrfs-assistant", "limine-snapper-sync", "cachyos-snapper-support"]
         elif bootloader == "grub":
             base_packages += ["snapper", "btrfs-assistant", "grub-btrfs-support"]
         elif bootloader == "refind" or bootloader == "refind-ai":
@@ -208,6 +208,17 @@ def run():
         return "Failed to run pacstrap", "Pacstrap failed with error {!s}".format(cpe.stderr)
     except PacmanError as pe:
         return "Failed to run pacstrap", format(pe)
+
+    if bootloader == "limine":
+        try:
+            target_pkg_cache = os.path.join(root_mount_point, "var/cache/pacman/pkg")
+            os.makedirs(target_pkg_cache, exist_ok=True)
+            subprocess.run(
+                ["pacman", "-Sw", "--noconfirm", "--cachedir", target_pkg_cache, "limine-mkinitcpio-hook"],
+                check=False,
+            )
+        except Exception as e:
+            libcalamares.utils.warning("Failed to pre-cache limine-mkinitcpio-hook: {!s}".format(e))
 
     # copy files post install
     if "postInstallFiles" in libcalamares.job.configuration:
