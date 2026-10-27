@@ -1089,15 +1089,24 @@ def update_refind_config(efi_directory, installation_root_path):
         libcalamares.utils.warning('refindKernelList not set.  Skipping updating refind.conf')
         return
 
+    refind_conf_path = installation_root_path + efi_directory + "/EFI/refind/refind.conf"
+
     # Update the config in the file
-    for line in fileinput.input(installation_root_path + efi_directory + "/EFI/refind/refind.conf", inplace=True):
+    for line in fileinput.input(refind_conf_path, inplace=True):
         line = line.strip()
         if line.startswith("#extra_kernel_version_strings") or line.startswith("extra_kernel_version_strings"):
-            line = line.lstrip("#")
+            line = line.lstrip("#").replace('"', '')
             for kernel in kernel_list:
                 if kernel not in line:
                     line += "," + kernel
+        elif line.startswith("timeout "):
+            line = "timeout 5"
         print(line)
+
+    with open(refind_conf_path, "a") as refind_conf:
+        refind_conf.write("\n# X64 LIOS Official Configuration & Theme\n")
+        refind_conf.write("dont_scan_files refind_x64.efi,BOOTX64.EFI\n")
+        refind_conf.write("include themes/x64-lios/theme.conf\n")
 
 
 def install_refind(efi_directory):
@@ -1125,6 +1134,26 @@ def install_refind(efi_directory):
             refind_file.write(line + "\n")
 
     update_refind_config(efi_directory, installation_root_path)
+
+    # Install X64 LIOS rEFInd theme and OS icons
+    theme_src = os.path.join(installation_root_path, "usr/share/refind/themes/x64-lios")
+    refind_efi_dir = os.path.join(install_efi_directory, "EFI/refind")
+    if os.path.isdir(theme_src) and os.path.isdir(refind_efi_dir):
+        theme_dst = os.path.join(refind_efi_dir, "themes/x64-lios")
+        os.makedirs(os.path.dirname(theme_dst), exist_ok=True)
+        shutil.copytree(theme_src, theme_dst, dirs_exist_ok=True)
+        os_icon = os.path.join(theme_src, "icons/os_linux.png")
+        if os.path.isfile(os_icon):
+            shutil.copy2(os_icon, os.path.join(installation_root_path, "boot/.VolumeIcon.png"))
+            shutil.copy2(os_icon, os.path.join(installation_root_path, ".VolumeIcon.png"))
+
+    # Populate UEFI Fallback path (/EFI/BOOT/BOOTX64.EFI) so systems without persistent NVRAM boot rEFInd
+    if os.path.isdir(refind_efi_dir):
+        efi_boot_dir = os.path.join(install_efi_directory, "EFI/BOOT")
+        shutil.copytree(refind_efi_dir, efi_boot_dir, dirs_exist_ok=True)
+        refind_bin = os.path.join(efi_boot_dir, "refind_x64.efi")
+        if os.path.isfile(refind_bin):
+            shutil.move(refind_bin, os.path.join(efi_boot_dir, "BOOTX64.EFI"))
 
 
 def prepare_bootloader(fw_type, install_hybrid_grub):

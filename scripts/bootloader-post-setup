@@ -170,6 +170,27 @@ elif pacman -Qq grub 2>/dev/null; then
     if [ -f /boot/grub/grub.cfg ]; then
         grub-mkconfig -o /boot/grub/grub.cfg || true
     fi
+elif pacman -Qq refind 2>/dev/null && [ -d /boot/efi/EFI/refind ]; then
+    echo "Finalizing X64 LIOS rEFInd configuration..."
+    mkinitcpio -P || true
+
+    if [ -d /usr/share/refind/themes/x64-lios ]; then
+        mkdir -p /boot/efi/EFI/refind/themes
+        cp -rf /usr/share/refind/themes/x64-lios /boot/efi/EFI/refind/themes/
+        if [ -f /usr/share/refind/themes/x64-lios/icons/os_linux.png ]; then
+            cp -f /usr/share/refind/themes/x64-lios/icons/os_linux.png /boot/.VolumeIcon.png || true
+            cp -f /usr/share/refind/themes/x64-lios/icons/os_linux.png /.VolumeIcon.png || true
+            for k in /boot/vmlinuz-*; do
+                [ -f "$k" ] && cp -f /usr/share/refind/themes/x64-lios/icons/os_linux.png "${k}.png" || true
+            done
+        fi
+    fi
+
+    # Sync UEFI Fallback directory (/boot/efi/EFI/BOOT/BOOTX64.EFI) and remove stale OVMF NvVars
+    mkdir -p /boot/efi/EFI/BOOT
+    cp -rf /boot/efi/EFI/refind/* /boot/efi/EFI/BOOT/
+    [ -f /boot/efi/EFI/BOOT/refind_x64.efi ] && mv -f /boot/efi/EFI/BOOT/refind_x64.efi /boot/efi/EFI/BOOT/BOOTX64.EFI
+    rm -f /boot/efi/NvVars 2>/dev/null || true
 else
     mkinitcpio -P || true
 fi
