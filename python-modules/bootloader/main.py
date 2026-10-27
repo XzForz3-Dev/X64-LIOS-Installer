@@ -1142,10 +1142,6 @@ def install_refind(efi_directory):
         theme_dst = os.path.join(refind_efi_dir, "themes/x64-lios")
         os.makedirs(os.path.dirname(theme_dst), exist_ok=True)
         shutil.copytree(theme_src, theme_dst, dirs_exist_ok=True)
-        os_icon = os.path.join(theme_src, "icons/os_linux.png")
-        if os.path.isfile(os_icon):
-            shutil.copy2(os_icon, os.path.join(installation_root_path, "boot/.VolumeIcon.png"))
-            shutil.copy2(os_icon, os.path.join(installation_root_path, ".VolumeIcon.png"))
 
     # Populate UEFI Fallback path (/EFI/BOOT/BOOTX64.EFI) so systems without persistent NVRAM boot rEFInd
     if os.path.isdir(refind_efi_dir):
