@@ -1,37 +1,122 @@
 #!/usr/bin/env bash
 
+# 1. Permanently neutralize CachyOS branding hooks and enforce X64 LIOS OS identity
+mkdir -p /etc/pacman.d/hooks
+ln -sf /dev/null /etc/pacman.d/hooks/cachyos-branding.hook
+ln -sf /dev/null /etc/pacman.d/hooks/os-release.hook
+ln -sf /dev/null /etc/pacman.d/hooks/lsb-release.hook
+
+cat << 'EOF' > /usr/lib/os-release
+NAME="X64 LIOS Linux"
+PRETTY_NAME="X64 LIOS Linux"
+ID=x64lios
+ID_LIKE=arch
+BUILD_ID=rolling
+ANSI_COLOR="1;31"
+HOME_URL="https://x64studios.com/"
+DOCUMENTATION_URL="https://x64studios.com/docs"
+SUPPORT_URL="https://x64studios.com/support"
+BUG_REPORT_URL="https://github.com/XzForz3-Dev"
+PRIVACY_POLICY_URL="https://x64studios.com/privacy"
+LOGO=x64lios
+EOF
+ln -sf ../usr/lib/os-release /etc/os-release
+
+cat << 'EOF' > /etc/lsb-release
+DISTRIB_ID=x64lios
+DISTRIB_RELEASE="rolling"
+DISTRIB_DESCRIPTION="X64 LIOS Linux"
+EOF
+
+# 2. Configure Plymouth Boot Splash safely BEFORE bootloader initramfs generation
+if pacman -Qq plymouth 2>/dev/null; then
+    echo "Configuring X64 LIOS Plymouth Boot Splash..."
+    mkdir -p /etc/plymouth
+    cat << 'EOF' > /etc/plymouth/plymouthd.conf
+[Daemon]
+Theme=x64-lios
+ShowDelay=0
+DeviceTimeout=8
+EOF
+
+    # Ensure clean Plymouth termination without locking DRM framebuffer
+    rm -rf /etc/systemd/system/plymouth-quit.service.d
+
+    if [ -f /etc/mkinitcpio.conf ]; then
+        if grep -q "plymouth" /etc/mkinitcpio.conf; then
+            sed -i -E 's/plymouth //g; s/ plymouth//g' /etc/mkinitcpio.conf
+            sed -i -E 's/filesystems/plymouth filesystems/' /etc/mkinitcpio.conf
+        fi
+    fi
+fi
+
+# 3. Bootloader-specific post-setup and initramfs synchronization
 if pacman -Qq limine 2>/dev/null; then
     limine_snapper_config="/etc/limine-snapper-sync.conf"
 
     if [ -e "$limine_snapper_config" ]; then
-        sed -i 's/TARGET_OS_NAME=".*"/TARGET_OS_NAME="X64 LIOS Linux"/' "$limine_snapper_config"
+        sed -i 's/^#*TARGET_OS_NAME=.*/TARGET_OS_NAME="X64 LIOS Linux"/' "$limine_snapper_config"
+        sed -i 's|^#*ESP_PATH=.*|ESP_PATH="/boot/efi"|' "$limine_snapper_config"
 
-        # It's NOT right, but we have no choice because the snapper setup doesn't
-        # work correctly at pacstrap step.
         pacman -S --noconfirm --needed cachyos-snapper-support
         systemctl enable limine-snapper-sync.service &>/dev/null
     fi
 
-    # Replace limine-entry-tool with limine-mkinitcpio-hook to automate handling of
-    # new kernels
-    pacman -R --noconfirm limine-entry-tool
-    pacman -S --noconfirm --needed limine-mkinitcpio-hook
+    # Remove temporary mkinitcpio hook if still present, then replace limine-entry-tool with limine-mkinitcpio-hook
+    rm -f /etc/pacman.d/hooks/90-mkinitcpio-install.hook /usr/share/libalpm/scripts/mkinitcpio-install-calamares
+    pacman -R --noconfirm limine-entry-tool 2>/dev/null || true
+    pacman -S --noconfirm --needed --overwrite '*' limine-mkinitcpio-hook
 
     if [ -e "$limine_snapper_config" ]; then
-        cat << 'EOF' > /etc/mkinitcpio.conf.d/10-limine-snapper-sync.conf
+        mkdir -p /etc/mkinitcpio.conf.d
+        if grep -q "^HOOKS=.*systemd" /etc/mkinitcpio.conf 2>/dev/null; then
+            cat << 'EOF' > /etc/mkinitcpio.conf.d/10-limine-snapper-sync.conf
 # This hook is necessary for the proper loading of Limine snapshots.
-# Please do not touch unless you know what you are doing.
 HOOKS+=(sd-btrfs-overlayfs)
+EOF
+        else
+            cat << 'EOF' > /etc/mkinitcpio.conf.d/10-limine-snapper-sync.conf
+# This hook is necessary for the proper loading of Limine snapshots.
+HOOKS+=(btrfs-overlayfs)
+EOF
+        fi
+    fi
+
+    # Ensure /boot/efi/limine.conf has clean X64 LIOS Linux header with machine-id underneath
+    if [ -f /boot/efi/limine.conf ] && [ -f /etc/machine-id ]; then
+        MID=$(tr -d '\n' < /etc/machine-id)
+        cat << EOF > /boot/efi/limine.conf
+timeout: 5
+default_entry: 2
+remember_last_entry: yes
+
+/+X64 LIOS Linux
+comment: machine-id=${MID}
 EOF
     fi
 
     limine-update
-elif pacman -Qq systemd-boot-manager 2>/dev/null && bootctl is-installed 2>/dev/null; then
-    echo "Enable systemd boot manager for automatic boot entry generation"
-    rm -rf /boot/loader/entries/*
-    sdboot-manage gen
+elif pacman -Qq systemd-boot-manager 2>/dev/null && bootctl --esp-path=/boot/efi is-installed 2>/dev/null; then
+    echo "Finalizing X64 LIOS systemd-boot configuration..."
+    # Neutralize sdboot-manage hooks that assume ESP=/boot, and use systemd's native kernel-install for /boot/efi
+    ln -sf /dev/null /etc/pacman.d/hooks/sdboot-kernel-update.hook
+    ln -sf /dev/null /etc/pacman.d/hooks/sdboot-kernel-remove.hook
+
+    for kmod in /usr/lib/modules/*/vmlinuz; do
+        if [ -f "$kmod" ]; then
+            kver=$(basename "$(dirname "$kmod")")
+            kernel-install add "$kver" "$kmod" || true
+        fi
+    done
+
+    if compgen -G "/boot/efi/loader/entries/*.conf" > /dev/null; then
+        sed -i 's/^title\s\+.*/title      X64 LIOS Linux/' /boot/efi/loader/entries/*.conf
+        sed -i 's/^sort-key\s\+.*/sort-key   x64lios/' /boot/efi/loader/entries/*.conf
+    fi
 elif pacman -Qq grub 2>/dev/null; then
     echo "Finalizing X64 LIOS GRUB configuration..."
+    mkinitcpio -P || true
+
     if [ -f /boot/vmlinuz-linux-cachyos-deckify ]; then
         target_kernel="/boot/vmlinuz-linux-cachyos-deckify"
     else
@@ -59,34 +144,11 @@ elif pacman -Qq grub 2>/dev/null; then
     if [ -f /boot/grub/grub.cfg ]; then
         grub-mkconfig -o /boot/grub/grub.cfg || true
     fi
+else
+    mkinitcpio -P || true
 fi
 
-# Configure Plymouth Boot Splash safely (never lock DRM or place hook before KMS)
-if pacman -Qq plymouth 2>/dev/null; then
-    echo "Configuring X64 LIOS Plymouth Boot Splash..."
-    mkdir -p /etc/plymouth
-    cat << 'EOF' > /etc/plymouth/plymouthd.conf
-[Daemon]
-Theme=x64-lios
-ShowDelay=0
-DeviceTimeout=8
-EOF
-
-    # Ensure clean Plymouth termination without locking DRM framebuffer
-    rm -rf /etc/systemd/system/plymouth-quit.service.d
-
-    if [ -f /etc/mkinitcpio.conf ]; then
-        # Ensure plymouth hook is placed safely AFTER kms and autodetect
-        # (never before kms, otherwise early boot hangs waiting for GPU drivers)
-        if grep -q "plymouth" /etc/mkinitcpio.conf; then
-            sed -i -E 's/plymouth //g; s/ plymouth//g' /etc/mkinitcpio.conf
-            sed -i -E 's/filesystems/plymouth filesystems/' /etc/mkinitcpio.conf
-        fi
-        mkinitcpio -P || true
-    fi
-fi
-
-# Ensure systemd-oomd is completely eradicated from startup and slice auto-activation is neutralized
+# 4. Ensure systemd-oomd is completely eradicated from startup and slice auto-activation is neutralized
 mkdir -p /etc/systemd/system/system.slice.d /etc/systemd/system/user-.slice.d
 ln -sf /dev/null /etc/systemd/system/system.slice.d/10-oomd-per-slice-defaults.conf
 ln -sf /dev/null /etc/systemd/system/user-.slice.d/10-oomd-per-slice-defaults.conf
@@ -95,4 +157,3 @@ rm -f /etc/systemd/system/sockets.target.wants/systemd-oomd.socket 2>/dev/null |
 rm -f /etc/systemd/system/dbus-org.freedesktop.oom1.service 2>/dev/null || true
 rm -f /etc/systemd/system/timers.target.wants/fwupd-refresh.timer 2>/dev/null || true
 SYSTEMD_OFFLINE=1 systemctl --root=/ disable systemd-oomd.service systemd-oomd.socket 2>/dev/null || true
-

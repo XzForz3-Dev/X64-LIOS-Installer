@@ -689,13 +689,51 @@ def run_grub_install(fw_type, partitions, efi_directory, install_hybrid_grub):
                                    boot_loader_install_path])
 
 
+def get_target_platform():
+    """Detect platform: handheld (Steam Deck, ROG Ally, etc.) or desktop."""
+    if hasattr(libcalamares.utils, "get_target_platform"):
+        try:
+            return libcalamares.utils.get_target_platform()
+        except Exception:
+            pass
+
+    try:
+        vendor, prod = "", ""
+        if os.path.exists("/sys/class/dmi/id/sys_vendor"):
+            with open("/sys/class/dmi/id/sys_vendor", "r") as f:
+                vendor = f.read().lower().strip()
+        if os.path.exists("/sys/class/dmi/id/product_name"):
+            with open("/sys/class/dmi/id/product_name", "r") as f:
+                prod = f.read().lower().strip()
+
+        handheld_signatures = [
+            "valve", "jupiter", "galileo",
+            "rog ally", "rc71l", "rc72l",
+            "legion go", "83e1",
+            "ayaneo", "ayan-eo",
+            "gpd", "win 4", "win max", "win mini",
+            "onexplayer", "aokzoe", "claw"
+        ]
+        if any(sig in vendor or sig in prod for sig in handheld_signatures):
+            return "handheld"
+    except Exception as e:
+        libcalamares.utils.debug("Handheld DMI detection check: {!s}".format(e))
+
+    return "desktop"
+
+
 def show_broken_uefi_warning():
-    libcalamares.utils.show_warning(
-        "Bootloader installation partially broken",
-        "Due to a probably bug of your UEFI, system bootloader has been installed "
-        "but not listed in the entry list. You need to select drive on which you "
-        "install the system by yourself for default boot later."
-    )
+    if hasattr(libcalamares.utils, "show_warning"):
+        libcalamares.utils.show_warning(
+            "Bootloader installation partially broken",
+            "Due to a probably bug of your UEFI, system bootloader has been installed "
+            "but not listed in the entry list. You need to select drive on which you "
+            "install the system by yourself for default boot later."
+        )
+    else:
+        libcalamares.utils.warning(
+            "Bootloader installation partially broken: UEFI NVRAM entry could not be registered; fallback EFI loader installed."
+        )
 
 def get_partition_drive(partition):
     devname = partition.replace("/dev/", "")
@@ -788,7 +826,7 @@ def update_limine_config(efi_directory, installation_root_path, fw_type):
         if fw_type == "efi":
             config_file.write("remember_last_entry: yes\n")
 
-        if libcalamares.utils.get_target_platform() == "handheld":
+        if get_target_platform() == "handheld":
             rotation = get_device_rotation()
             if rotation == 1:
                 config_file.write("interface_rotation: 180\n")
@@ -824,15 +862,16 @@ def update_limine_config(efi_directory, installation_root_path, fw_type):
             libcalamares.utils.warning('limineSplashLogo not set. Skipping wallpaper in limine.conf')
 
         machine_id = get_machine_id(installation_root_path)
-        config_file.write(f"comment: machine-id={machine_id}\n")
         try:
             branding = libcalamares.globalstorage.value("branding")
             bootloader_entry = branding.get("bootloaderEntryName", "X64 LIOS Linux")
         except Exception:
             bootloader_entry = "X64 LIOS Linux"
         config_file.write(f"/+{bootloader_entry}\n")
+        config_file.write(f"comment: machine-id={machine_id}\n")
 
     with open(limine_entry_config_path, 'w') as limine_entry_config:
+        limine_entry_config.write('TARGET_OS_NAME="X64 LIOS Linux"\n')
         limine_entry_config.write(f'ESP_PATH="{efi_directory}"\n')
         limine_entry_config.write(f'KERNEL_CMDLINE[default]+="{kernel_params}"\n')
         limine_entry_config.write(f'BOOT_ORDER="*, *lts, *fallback, Snapshots"\n')
