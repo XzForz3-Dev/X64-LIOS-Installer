@@ -384,6 +384,7 @@
     - lightdm-slick-greeter
     - gnome-keyring
     - gnome-terminal
+    - kitty
     - x64-cinnamon-settings
 
 - name: "Xfce4"
