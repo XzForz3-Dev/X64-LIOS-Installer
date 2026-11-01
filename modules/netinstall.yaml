@@ -394,8 +394,10 @@
   packages:
     - xfce4
     - xfce4-goodies
+    - labwc
+    - xorg-xwayland
     - lightdm
-    - lightdm-gtk-greeter
+    - lightdm-slick-greeter
     - thunar
     - file-roller
     - ristretto
