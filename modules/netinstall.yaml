@@ -423,6 +423,7 @@
 
 - name: "Web Browsers"
   description: "Popular and optimized web browsers"
+  platform: "desktop"
   hidden: false
   selected: true
   critical: false
