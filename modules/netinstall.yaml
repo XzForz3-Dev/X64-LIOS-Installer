@@ -416,9 +416,8 @@
     - x64-sddm-theme
     - dolphin
     - kitty
-    - waybar
-    - rofi-wayland
-    - dunst
+    - quickshell
+    - swaybg
     - xdg-desktop-portal-hyprland
     - x64-hyprland-settings
 
