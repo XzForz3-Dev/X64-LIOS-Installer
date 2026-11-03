@@ -419,6 +419,7 @@
     - quickshell
     - swaybg
     - hyprlock
+    - gpu-screen-recorder
     - xdg-desktop-portal-hyprland
     - x64-hyprland-settings
 
