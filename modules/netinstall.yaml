@@ -33,6 +33,7 @@
     - x64-plymouth-theme
     - kitty
     - fish
+    - opencode
 
 - name: "X64 LIOS Kernel"
   description: "Optimized ultra-low latency kernel for gaming on PCs and laptops"
@@ -415,10 +416,25 @@
     - sddm
     - x64-sddm-theme
     - dolphin
+    - ark
+    - ffmpegthumbs
+    - kdegraphics-thumbnailers
     - kitty
+    - opencode
     - quickshell
     - swaybg
     - hyprlock
+    - hypridle
+    - hyprpolkitagent
+    - hyprpwcenter
+    - hyprpicker
+    - hyprsunset
+    - loupe
+    - papers
+    - gnome-text-editor
+    - qalculate-gtk
+    - blueman
+    - gnome-disk-utility
     - gpu-screen-recorder
     - xdg-desktop-portal-hyprland
     - x64-hyprland-settings
