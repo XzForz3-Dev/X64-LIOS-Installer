@@ -437,6 +437,7 @@
     - gnome-disk-utility
     - gpu-screen-recorder
     - cliphist
+    - adw-gtk-theme
     - xdg-desktop-portal-hyprland
     - x64-hyprland-settings
 
