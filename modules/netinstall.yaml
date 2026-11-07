@@ -440,6 +440,41 @@
     - xdg-desktop-portal-hyprland
     - x64-hyprland-settings
 
+- name: "Omarchy"
+  description: "X64 LIOS + Omarchy - Flagship Basecamp Omarchy desktop shell with Quickshell, Cyberpunk themes, and continuous sync."
+  hidden: false
+  selected: false
+  critical: true
+  packages:
+    - hyprland
+    - sddm
+    - x64-sddm-theme
+    - dolphin
+    - ark
+    - ffmpegthumbs
+    - kdegraphics-thumbnailers
+    - kitty
+    - opencode
+    - quickshell
+    - swaybg
+    - hyprlock
+    - hypridle
+    - hyprpolkitagent
+    - hyprpwcenter
+    - hyprpicker
+    - hyprsunset
+    - loupe
+    - papers
+    - gnome-text-editor
+    - qalculate-gtk
+    - blueman
+    - gnome-disk-utility
+    - gpu-screen-recorder
+    - cliphist
+    - adw-gtk-theme
+    - xdg-terminal-exec
+    - xdg-desktop-portal-hyprland
+
 - name: "Web Browsers"
   description: "Popular and optimized web browsers"
   platform: "desktop"
