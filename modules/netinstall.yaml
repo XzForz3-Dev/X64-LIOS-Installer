@@ -411,6 +411,7 @@
   critical: true
   packages:
     - hyprland
+    - uwsm
     - sddm
     - x64-sddm-theme
     - dolphin
@@ -447,6 +448,7 @@
   critical: true
   packages:
     - hyprland
+    - uwsm
     - sddm
     - x64-sddm-theme
     - dolphin
