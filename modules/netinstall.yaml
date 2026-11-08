@@ -439,6 +439,15 @@
     - adw-gtk-theme
     - xdg-terminal-exec
     - xdg-desktop-portal-hyprland
+    - socat
+    - udiskie
+    - wtype
+    - wl-clipboard
+    - pamixer
+    - brightnessctl
+    - inotify-tools
+    - bluez-tools
+    - fcitx5
     - x64-hyprland-settings
 
 - name: "Omarchy"
@@ -476,6 +485,15 @@
     - adw-gtk-theme
     - xdg-terminal-exec
     - xdg-desktop-portal-hyprland
+    - socat
+    - udiskie
+    - wtype
+    - wl-clipboard
+    - pamixer
+    - brightnessctl
+    - inotify-tools
+    - bluez-tools
+    - fcitx5
 
 - name: "Web Browsers"
   description: "Popular and optimized web browsers"
