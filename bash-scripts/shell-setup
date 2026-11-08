@@ -75,17 +75,12 @@ SYSTEMD_OFFLINE=1 systemctl --root=/ disable fwupd-refresh.timer 2>/dev/null || 
 # If Omarchy was selected (Hyprland installed without x64-hyprland-settings)
 if pacman -Qq hyprland >/dev/null 2>&1 && ! pacman -Qq x64-hyprland-settings >/dev/null 2>&1; then
     echo ":: [X64 LIOS] Deploying X64 LIOS + Omarchy flagship desktop..."
-    git clone --depth 1 -b main https://github.com/XzForz3-Dev/X64-LIOS-Omarchy.git /usr/share/omarchy 2>/dev/null || true
-    if [ -d /usr/share/omarchy ]; then
-        mkdir -p /etc/profile.d
-        echo 'export OMARCHY_PATH=/usr/share/omarchy' > /etc/profile.d/omarchy.sh
-        chmod +x /etc/profile.d/omarchy.sh
-        cp /usr/share/omarchy/default/wayland-sessions/*.desktop /usr/share/wayland-sessions/ 2>/dev/null || true
-        if [ -n "$user" ] && [ -d "/home/$user" ]; then
-            mkdir -p "/home/$user/.config" "/home/$user/.local/bin"
-            cp -rn /usr/share/omarchy/config/* "/home/$user/.config/" 2>/dev/null || true
-            chown -R "$user:$user" "/home/$user/.config" "/home/$user/.local" 2>/dev/null || true
-        fi
+    if [ ! -d /usr/share/omarchy ]; then
+        git clone --depth 1 -b main https://github.com/XzForz3-Dev/X64-LIOS-Omarchy.git /usr/share/omarchy 2>/dev/null || true
+    fi
+    if [ -f /usr/share/omarchy/bin/x64-omarchy-setup.py ]; then
+        echo ":: [X64 LIOS] Running official Omarchy automated setup engine..."
+        python3 /usr/share/omarchy/bin/x64-omarchy-setup.py --user "$user"
     fi
 fi
 
