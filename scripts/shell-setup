@@ -82,6 +82,16 @@ if pacman -Qq hyprland >/dev/null 2>&1 && ! pacman -Qq x64-hyprland-settings >/d
         echo ":: [X64 LIOS] Running official Omarchy automated setup engine..."
         python3 /usr/share/omarchy/bin/x64-omarchy-setup.py --user "$user" --theme "x64-lios-crimson"
     fi
+
+    # Ensure OWE (Omarchy Wallpaper Engine) is enabled for graphical sessions with DRM compatibility
+    mkdir -p /etc/systemd/user/owed.service.d /etc/systemd/user/graphical-session.target.wants
+    cat << 'EOF' > /etc/systemd/user/owed.service.d/10-x64-compatibility.conf
+[Service]
+Environment="OWE_DRM_DPMS=0"
+EOF
+    if [ -f /usr/lib/systemd/user/owed.service ]; then
+        ln -sf /usr/lib/systemd/user/owed.service /etc/systemd/user/graphical-session.target.wants/owed.service
+    fi
 fi
 
 
