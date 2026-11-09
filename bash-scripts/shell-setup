@@ -80,7 +80,7 @@ if pacman -Qq hyprland >/dev/null 2>&1 && ! pacman -Qq x64-hyprland-settings >/d
     fi
     if [ -f /usr/share/omarchy/bin/x64-omarchy-setup.py ]; then
         echo ":: [X64 LIOS] Running official Omarchy automated setup engine..."
-        python3 /usr/share/omarchy/bin/x64-omarchy-setup.py --user "$user"
+        python3 /usr/share/omarchy/bin/x64-omarchy-setup.py --user "$user" --theme "x64-lios-crimson"
     fi
 fi
 
