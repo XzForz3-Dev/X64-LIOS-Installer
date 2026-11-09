@@ -448,7 +448,6 @@
     - inotify-tools
     - bluez-tools
     - fcitx5
-    - omarchy-speedtest
     - x64-hyprland-settings
 
 - name: "Omarchy"
