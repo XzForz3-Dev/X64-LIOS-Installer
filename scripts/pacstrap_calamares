@@ -336,7 +336,7 @@ if (( ! interactive )); then
   pacman_args+=(--noconfirm)
 fi
 
-pacman_args+=(--needed)
+pacman_args+=(--needed --disable-download-timeout)
 
 if [[ $pacman_config ]]; then
   pacman_args+=(--config="$pacman_config")
