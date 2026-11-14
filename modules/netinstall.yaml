@@ -32,6 +32,8 @@
     - kitty
     - fish
     - opencode
+    - wl-clipboard
+    - xclip
 
 - name: "X64 LIOS Kernel"
   description: "Optimized ultra-low latency kernel for gaming on PCs and laptops"
