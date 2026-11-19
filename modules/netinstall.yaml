@@ -351,6 +351,10 @@
     - cosmic-screenshot
     - cosmic-icon-theme
     - cosmic-wallpapers
+    - file-roller
+    - papers
+    - gnome-calculator
+    - gnome-disk-utility
     - gnome-keyring
     - xdg-desktop-portal-cosmic
     - xdg-desktop-portal-gtk
@@ -369,6 +373,13 @@
     - kitty
     - nautilus
     - noctalia
+    - file-roller
+    - loupe
+    - papers
+    - gnome-text-editor
+    - gnome-calculator
+    - gnome-disk-utility
+    - gnome-system-monitor
     - xdg-desktop-portal-gnome
     - x64-niri-settings
 
@@ -381,6 +392,15 @@
     - cinnamon
     - cinnamon-translations
     - nemo
+    - nemo-fileroller
+    - file-roller
+    - blueman
+    - xed
+    - xviewer
+    - xreader
+    - gnome-calculator
+    - gnome-disk-utility
+    - gnome-system-monitor
     - lightdm
     - lightdm-slick-greeter
     - gnome-keyring
@@ -403,6 +423,10 @@
     - thunar
     - file-roller
     - ristretto
+    - blueman
+    - xreader
+    - gnome-calculator
+    - gnome-disk-utility
     - network-manager-applet
     - x64-xfce4-settings
 
