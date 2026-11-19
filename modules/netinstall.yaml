@@ -18,6 +18,8 @@
     - chwd
     - falcond
     - falcond-profiles
+    - dmemcg-booster
+    - thermald
     - scx-scheds
     - scx-tools
     - steam-devices

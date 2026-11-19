@@ -25,6 +25,16 @@ fi
 # Ensure FalconD user profiles directory exists for inotify watcher
 mkdir -p /usr/share/falcond/profiles/user
 
+# Enable thermald ONLY on bare-metal Intel CPUs (avoid unnecessary spawn on AMD Ryzen or VMs)
+if grep -q "GenuineIntel" /proc/cpuinfo 2>/dev/null && \
+   { ! command -v systemd-detect-virt >/dev/null 2>&1 || ! systemd-detect-virt --quiet 2>/dev/null; }; then
+    if [ -f /usr/lib/systemd/system/thermald.service ]; then
+        mkdir -p /etc/systemd/system/multi-user.target.wants
+        ln -sf /usr/lib/systemd/system/thermald.service /etc/systemd/system/multi-user.target.wants/thermald.service
+        ln -sf /usr/lib/systemd/system/thermald.service /etc/systemd/system/dbus-org.freedesktop.thermald.service
+    fi
+fi
+
 # Ensure X64 LIOS Low-Latency Kernel & Network Profile (if not already installed by x64-terminal-settings)
 if [ ! -f /etc/sysctl.d/99-x64-lios-performance.conf ]; then
     mkdir -p /etc/sysctl.d
