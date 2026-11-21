@@ -439,7 +439,6 @@
   critical: true
   packages:
     - hyprland
-    - uwsm
     - sddm
     - x64-sddm-theme
     - dolphin
@@ -449,7 +448,9 @@
     - kitty
     - opencode
     - quickshell
+    - qt6-multimedia
     - swaybg
+    - mpvpaper
     - hyprlock
     - hypridle
     - hyprpolkitagent
@@ -468,14 +469,11 @@
     - xdg-terminal-exec
     - xdg-desktop-portal-hyprland
     - socat
-    - udiskie
-    - wtype
     - wl-clipboard
-    - pamixer
     - brightnessctl
-    - inotify-tools
-    - bluez-tools
-    - fcitx5
+    - jq
+    - python-pillow
+    - x64-themes
     - x64-hyprland-settings
 
 - name: "Omarchy"
