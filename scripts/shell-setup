@@ -7,8 +7,15 @@ for shell in 'fish' 'zsh'; do
 done
 
 # Enable UFW firewall out-of-the-box (DEFAULT_INPUT_POLICY="DROP", DEFAULT_OUTPUT_POLICY="ACCEPT")
+# and pre-authorize KDE Connect / GSConnect LAN discovery & transfer ports (1714:1764 UDP/TCP)
 if [ -f /etc/ufw/ufw.conf ]; then
     sed -i 's/^ENABLED=no/ENABLED=yes/' /etc/ufw/ufw.conf
+fi
+if [ -f /etc/ufw/user.rules ] && ! grep -q "1714:1764" /etc/ufw/user.rules 2>/dev/null; then
+    sed -i '/^### END RULES ###/i ### tuple ### allow udp 1714:1764 0.0.0.0/0 any 0.0.0.0/0 in\n-A ufw-user-input -p udp -m multiport --dports 1714:1764 -j ACCEPT\n\n### tuple ### allow tcp 1714:1764 0.0.0.0/0 any 0.0.0.0/0 in\n-A ufw-user-input -p tcp -m multiport --dports 1714:1764 -j ACCEPT\n' /etc/ufw/user.rules 2>/dev/null || true
+fi
+if [ -f /etc/ufw/user6.rules ] && ! grep -q "1714:1764" /etc/ufw/user6.rules 2>/dev/null; then
+    sed -i '/^### END RULES ###/i ### tuple ### allow udp 1714:1764 ::/0 any ::/0 in\n-A ufw6-user-input -p udp -m multiport --dports 1714:1764 -j ACCEPT\n\n### tuple ### allow tcp 1714:1764 ::/0 any ::/0 in\n-A ufw6-user-input -p tcp -m multiport --dports 1714:1764 -j ACCEPT\n' /etc/ufw/user6.rules 2>/dev/null || true
 fi
 
 # Ensure Pacman Color, ILoveCandy, and [multilib] are enabled
