@@ -543,6 +543,7 @@
     - wl-clipboard
     - grim
     - slurp
+    - brightnessctl
     - file-roller
     - loupe
     - papers
