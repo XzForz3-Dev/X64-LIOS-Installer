@@ -524,6 +524,36 @@
     - fcitx5
     - omarchy-speedtest
 
+- name: "Windows11-Desktop"
+  description: "X64 Windows 11 26H2 Edition - 1:1 Fluent Dark Windows 11 experience on Wayland (labwc + Quickshell) with under 50 MB RAM footprint."
+  hidden: false
+  selected: false
+  critical: true
+  packages:
+    - labwc
+    - quickshell
+    - wlr-randr
+    - sddm
+    - x64-sddm-theme
+    - polkit-gnome
+    - python-pyqt6
+    - qt6-svg
+    - xdg-desktop-portal-wlr
+    - xdg-desktop-portal-gtk
+    - wl-clipboard
+    - grim
+    - slurp
+    - file-roller
+    - loupe
+    - papers
+    - gnome-calculator
+    - gnome-disk-utility
+    - blueman
+    - adw-gtk-theme
+    - papirus-icon-theme
+    - kitty
+    - x64-win11-settings
+
 - name: "Web Browsers"
   description: "Popular and optimized web browsers"
   platform: "desktop"
