@@ -211,6 +211,7 @@
         - ripgrep
         - rsync
         - shelly
+        - shelly-flatpak-backend
         - starship
         - vim
         - wget
@@ -232,7 +233,8 @@
     - ark
     - bluedevil
     - breeze-gtk
-    - discover
+    - shelly
+    - shelly-flatpak-backend
     - dolphin
     - ffmpegthumbs
     - filelight
