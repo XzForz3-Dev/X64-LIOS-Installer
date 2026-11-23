@@ -533,6 +533,7 @@
     - labwc
     - quickshell
     - wlr-randr
+    - xorg-xwayland
     - sddm
     - x64-sddm-theme
     - polkit-gnome
