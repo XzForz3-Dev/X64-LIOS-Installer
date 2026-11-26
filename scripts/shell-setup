@@ -111,5 +111,41 @@ EOF
     fi
 fi
 
+# If X64 Windows 11 26H2 Edition was selected, finalize user SDDM state and Calamares keyboard layout
+if pacman -Qq x64-win11-settings >/dev/null 2>&1; then
+    echo ":: [X64 LIOS] Finalizing X64 Windows 11 26H2 Edition session for user ${user}..."
+    mkdir -p /var/lib/sddm
+    cat << EOF > /var/lib/sddm/state.conf
+[Last]
+User=${user}
+Session=/usr/share/wayland-sessions/x64-win11.desktop
+EOF
+    if [ -f /usr/share/wayland-sessions/labwc.desktop ] && ! grep -q "^NoDisplay=true" /usr/share/wayland-sessions/labwc.desktop 2>/dev/null; then
+        echo "NoDisplay=true" >> /usr/share/wayland-sessions/labwc.desktop
+    fi
+    win11_kb=""
+    if [ -f /etc/X11/xorg.conf.d/00-keyboard.conf ]; then
+        win11_kb=$(awk -F'"' '/Option "XkbLayout"/{print $4; exit}' /etc/X11/xorg.conf.d/00-keyboard.conf 2>/dev/null | cut -d',' -f1 | tr -d ' ')
+    fi
+    if [ -z "$win11_kb" ] && [ -f /etc/vconsole.conf ]; then
+        win11_kb=$(grep '^KEYMAP=' /etc/vconsole.conf 2>/dev/null | cut -d= -f2 | tr -d '"'\'' ')
+    fi
+    [ -z "$win11_kb" ] && win11_kb="es"
+    case "$win11_kb" in
+        us)    win11_pair="us,es" ;;
+        latam) win11_pair="latam,us" ;;
+        *)     win11_pair="${win11_kb},us" ;;
+    esac
+    for envf in /etc/xdg/x64-win11/labwc/environment /etc/skel/.config/labwc/environment "/home/${user}/.config/labwc/environment"; do
+        if [ -f "$envf" ]; then
+            sed -i "s/^XKB_DEFAULT_LAYOUT=.*/XKB_DEFAULT_LAYOUT=${win11_pair}/" "$envf" 2>/dev/null || true
+        fi
+    done
+    if [ -d "/home/${user}" ]; then
+        mkdir -p "/home/${user}/.local/state/x64-win11"
+        chown -R "${user}:${user}" "/home/${user}/.config/labwc" "/home/${user}/.local/state/x64-win11" 2>/dev/null || true
+    fi
+fi
+
 
 

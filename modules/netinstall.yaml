@@ -537,6 +537,7 @@
     - sddm
     - x64-sddm-theme
     - polkit-gnome
+    - power-profiles-daemon
     - python-pyqt6
     - qt6-svg
     - xdg-desktop-portal-wlr
@@ -545,14 +546,24 @@
     - grim
     - slurp
     - brightnessctl
+    - inter-font
     - breeze-cursors
     - breeze-icons
     - file-roller
+    - gnome-text-editor
     - loupe
     - papers
+    - mpv
     - gnome-calculator
     - gnome-disk-utility
     - blueman
+    - udisks2
+    - ntfs-3g
+    - pacman-contrib
+    - kdeconnect
+    - scrcpy
+    - android-tools
+    - android-udev
     - adw-gtk-theme
     - papirus-icon-theme
     - kitty

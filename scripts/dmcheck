@@ -18,7 +18,7 @@ echo ":: [X64 LIOS] Configuring Display Manager..."
 rm -f /etc/systemd/system/display-manager.service
 
 # Priority hierarchy based on installed desktop stacks:
-# 1. SDDM (KDE Plasma 6, Hyprland, Niri)
+# 1. SDDM (KDE Plasma 6, Hyprland, Niri, Omarchy, Windows 11 26H2)
 # 2. GDM (GNOME)
 # 3. COSMIC Greeter (COSMIC Desktop)
 # 4. LightDM (Xfce4, Cinnamon)
